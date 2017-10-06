@@ -1,0 +1,6 @@
+src/
+docs/
+tests/
+coverage/
+README.md
+.babelrc
