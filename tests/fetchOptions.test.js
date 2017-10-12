@@ -7,7 +7,7 @@ import {
   OPTIONS_LOAD_FAILED_TYPE,
 } from '../src/actions.js'
 
-const clientMocker = (passed, response = {}) => 
+const clientMocker = (passed, response = {}) =>
   spy(config => new Promise((resolve, reject) => {
     passed ? resolve(response) : reject({ response });
   }));

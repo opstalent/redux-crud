@@ -1,6 +1,7 @@
 node_modules/
 lib/
 coverage/
+plato/
 package-lock.json
 .idea
 .vscode

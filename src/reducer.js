@@ -11,7 +11,7 @@ const reducer = (state = {}, { type, payload }) => {
         ...state,
         [payload.namespace]: payload.response,
       };
-    default: 
+    default:
       return state;
   }
 };
