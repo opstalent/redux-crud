@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import React from 'react'
-import Enzyme, { configure, render, shallow } from 'enzyme';
+import Enzyme, { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 
 import {Loader} from '../src/Loader.js';
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() });
 
 const requiredProps = {
   dispatch: () => {},

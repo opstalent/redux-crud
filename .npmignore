@@ -2,5 +2,6 @@ src/
 docs/
 tests/
 coverage/
+plato/
 README.md
 .babelrc

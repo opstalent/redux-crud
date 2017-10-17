@@ -1,6 +1,6 @@
 {
   "name": "@opstalent/redux-crud",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "test:dox": "npm run test -- --verbose",
     "test:cov": "npm run test -- --coverage",
     "compile": "./node_modules/.bin/babel -d lib/ src/",
+    "plato": "./node_modules/.bin/es6-plato -rd ./plato ./src",
     "prepare": "npm run compile"
   },
   "repository": {
@@ -45,8 +46,8 @@
     "coveralls": "^3.0.0",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-15": "^1.0.1",
+    "es6-plato": "^1.0.14",
     "jest": "^21.2.1",
-    "mocha": "^4.0.1",
     "react-dom": "^15.0.0",
     "react-redux": "^5.0.6",
     "react-test-renderer": "^15.5.4",
