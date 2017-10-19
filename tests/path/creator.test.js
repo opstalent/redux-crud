@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import creator from '../src/pathCreator.js';
+import creator from '../../src/path/creator.js';
 
-describe('pathCreator', () => {
+describe('path/creator', () => {
   it('returns string', () => {
     expect(creator('some_url', 'list')).to.be.a('string');
   });

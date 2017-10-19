@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import transformer from '../src/pathTransformer.js';
+import transformer from '../../src/path/transformer.js';
 
-describe('pathTransformer', () => {
+describe('path/transformer', () => {
   it('returns given string when no wildcards in it', () => {
     expect(transformer('string')).to.equal('string');
   });

@@ -13,7 +13,7 @@ class Route extends React.Component
     return undefined !== this.props.options[`${apiUrl}${path}`];
   }
 
-  onMatch = (match) => {
+  onMatch = ({ match }) => {
     if (this.isLoaded()) {
       // @TODO: Render proper page based on OPTIONS
       return <div>Rendering...</div>;
