@@ -57,7 +57,7 @@ describe('Route.onMatch', () => {
         } }
       />
     ));
-    const component = shallow(wrapper.instance().onMatch());
+    const component = shallow(wrapper.instance().onMatch({}));
     expect(component.containsMatchingElement((
       <Loader
         apiUrl={ baseProps.apiUrl }

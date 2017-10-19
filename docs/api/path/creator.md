@@ -1,11 +1,11 @@
-# `pathCreator`
+# `path/creator`
+[`View source`](../../../src/path/creator.js)
 
 > Function creating path by URL given from API and action's type
 
-[`View source`](../../src/pathCreator.js)
 
 ```js
-pathCreator(url, action)
+creator(url, action)
 ```
 
 Function is creating URL for given action by concatenating given

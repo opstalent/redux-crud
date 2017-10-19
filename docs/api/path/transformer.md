@@ -1,5 +1,5 @@
-# `pathTransformer`
-[`View source`](../../src/pathTransformer)
+# `path/transformer`
+[`View source`](../../../src/path/transformer.js)
 
 > Function transforming URL templates from Symfony router format to
 > [`react-router`](https://github.com/ReactTraining/react-router) format.
@@ -8,11 +8,11 @@ Symfony router is using curly brackets to define wildcards in URL definition and
 [`react-router`](https://github.com/ReactTraining/react-router) is using string preceeded
 by colon.
 
-`pathTransformer` is used to transform URLs from Symfony format to format understandable
+`transformer` is used to transform URLs from Symfony format to format understandable
 by [`react-router`](https://github.com/ReactTraining/react-router).
 
 ```js
-pathTransformer(path);
+transformer(path);
 ```
 
 #### Parameters

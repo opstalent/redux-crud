@@ -1,5 +1,13 @@
 # API
 
+## [`path`](path/)
+
+> Namespace for handling path-related issues
+
+## [`routing`](routing/)
+
+> Namespace for handling routing-related issues
+
 ## [`reducer`](reducer.md)
 
 > The crud reducer. Have to be mounted to Redux store at `crud` key.
@@ -11,25 +19,6 @@
 > Function handling API call.
 
 [`View source`](../../src/fetchOptions.js)
-
-## [`pathTransformer`](pathTransformer.md)
-
-> Function transforming URL templates from Symfony router format to
-> [`react-router`](https://github.com/ReactTraining/react-router) format.
-
-[`View source`](../../src/pathTransformer.js)
-
-## [`pathCreator`](pathCreator.md)
-
-> Function creating path by URL given from API and action's type
-
-[`View source`](../../src/pathCreator.js)
-
-## [`routeResolver`](routeResolver.md)
-
-> Function used to resolve route's params from given OPTIONS array
-
-[`View source`](../../src/routeResolver.js)
 
 ## [`Loader`](loader.md)
 
