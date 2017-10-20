@@ -1,13 +1,13 @@
 {
   "name": "@opstalent/redux-crud",
-  "version": "0.2.0",
+  "version": "0.2.15",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
     "test": "./node_modules/.bin/jest ./tests",
     "test:dox": "npm run test -- --verbose",
     "test:cov": "npm run test -- --coverage",
-    "compile": "./node_modules/.bin/babel -d lib/ src/",
+    "compile": "rm -rf lib/; ./node_modules/.bin/babel -d lib/ src/;",
     "plato": "./node_modules/.bin/es6-plato -rd ./plato ./src",
     "prepare": "npm run compile"
   },
