@@ -15,6 +15,9 @@ class PageSwitch extends React.Component {
 
       return <Component
         handlerBuilder={ this.props.formHandlerBuilder }
+        config={ match.config }
+        form={ match.key }
+        templateResolver={ this.props.templateResolver }
         />;
     } catch (error) {
       this.props.dispatch(URL_MATCH_FAILURE({
@@ -42,6 +45,7 @@ PageSwitch.propTypes = {
   formHandlerBuilder: PropTypes.any,
   routeResolver: PropTypes.func,
   matcher: PropTypes.func,
+  templateResolver: PropTypes.any,
 };
 
 PageSwitch.defaultProps = {

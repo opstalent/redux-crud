@@ -37,6 +37,7 @@ class Route extends React.Component
         options={ this.getOptions() }
         url={ pathname }
         formHandlerBuilder={ this.createFormHandlerBuilder() }
+        templateResolver={ this.props.templateResolver }
       />;
     } else {
       return <Loader
@@ -68,6 +69,7 @@ Route.propTypes = {
   }))),
   formHandlerBuilderClass: PropTypes.func,
   dispatch: PropTypes.func.isRequired,
+  templateResolver: PropTypes.any,
 };
 
 Route.defaultProps = {
