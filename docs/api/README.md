@@ -1,10 +1,16 @@
 # API
 
-## [`path`](path/)
+## Namespaces
+
+### [`page`](page/)
+
+> Namespace for handling page-related issues
+
+### [`path`](path/)
 
 > Namespace for handling path-related issues
 
-## [`routing`](routing/)
+### [`routing`](routing/)
 
 > Namespace for handling routing-related issues
 

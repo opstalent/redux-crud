@@ -3,20 +3,31 @@ import PropTypes from 'prop-types';
 import { Route as BaseRoute } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import PageSwitch from './page/PageSwitch.js';
 import Loader from './Loader.js';
 
 class Route extends React.Component
 {
-  isLoaded() {
+  getNamespace() {
     const { apiUrl, path } = this.props;
 
-    return undefined !== this.props.options[`${apiUrl}${path}`];
+    return `${apiUrl}${path}`;
   }
 
-  onMatch = ({ match }) => {
+  getOptions() {
+    return this.props.options[this.getNamespace()];
+  }
+
+  isLoaded() {
+    return undefined !== this.getOptions();
+  }
+
+  onMatch = ({ match, location: { pathname } }) => {
     if (this.isLoaded()) {
-      // @TODO: Render proper page based on OPTIONS
-      return <div>Rendering...</div>;
+      return <PageSwitch
+        options={ this.getOptions() }
+        url={ pathname }
+      />;
     } else {
       return <Loader
         match={ match }
@@ -41,6 +52,10 @@ Route.propTypes = {
   apiUrl: PropTypes.string.isRequired,
   loaderComponent: PropTypes.node,
   fetchClient: PropTypes.any,
+  options: PropTypes.objectOf(PropTypes.objectOf(PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
+  }))),
 };
 
 Route.defaultProps = {

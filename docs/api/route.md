@@ -5,7 +5,25 @@ The `Route` component extends
 [`Route`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Route.md)
 from [`react-router`](https://github.com/ReactTraining/react-router).
 It is using matching engine to mount [`Loader`](loader.md) component which is sending `OPTIONS` request to API.
-When `OPTIONS` data loaded it is displaying message `Rendering...`.
+When `OPTIONS` data loaded it is rendering [`Switch`](page/switch.md) component
+which is mounting required CRUD page.
+
+## Methods reference
+
+#### `getNamespace() : string`
+
+Method returns namespace of `Route`. Namespace is concatenated from
+[`apiUrl`](#apiurl--string-required) and [`path`](#path--string-required) props.
+
+#### `getOptions() : object | undefined`
+
+Method returns options object for [namespace](#getNamespace--string) of `Route`.
+If no matching options `undefined` is returned.
+
+#### `isLoaded() : bool`
+
+Method returns `true` if [options](#getOptions--object--undefined) for `Route` are defined.
+If there are no options `false` is returned.
 
 ## Props reference
 
