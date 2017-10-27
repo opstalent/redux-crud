@@ -1,7 +1,7 @@
-# `Switch`
-[`View source`](../../../src/page/switch.js)
+# `PageSwitch`
+[`View source`](../../../src/page/PageSwitch.js)
 
-The `Switch` component is mounting CRUD page from given URL and OPTIONS config.
+The `PageSwitch` component is mounting CRUD page from given URL and OPTIONS config.
 
 When no matching page found `Page not found` message will be displayed and action
 `REDUXCRUD_URL_MATCH_FAILURE` will be raised.
