@@ -7,6 +7,23 @@
 routeResolver(options);
 ```
 
+Input array item has to have following structure:
+```js
+const option = {
+  url: '/some/url/with/{wildcard}/',
+  action: 'list',
+};
+```
+
+Output array item has following structure:
+```js
+const item = {
+  url: '/some/url/with/:wildcard/',
+  exact: true,
+  strict: false,
+};
+```
+
 #### Parameters
 
 ##### `options : object`

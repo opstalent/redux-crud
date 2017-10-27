@@ -12,4 +12,4 @@ export default (url, routes = []) => {
   }
 
   throw new Error('No item matches given routes');
-}
+};
