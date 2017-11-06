@@ -1,6 +1,7 @@
 import Route from './Route.js';
 import reducer from './reducer.js';
 import * as actionDefs from './actions.js';
+import resolver from './page/resolverContainer.js';
 
 const actions = {
   OPTIONS_LOADED: actionDefs.OPTIONS_LOADED_TYPE,
@@ -12,4 +13,5 @@ export {
   Route,
   reducer,
   actions,
+  resolver,
 };
