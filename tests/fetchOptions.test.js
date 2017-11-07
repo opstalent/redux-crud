@@ -1,27 +1,16 @@
 import { expect } from 'chai';
 import { spy } from 'sinon';
 
+import asyncAssert from './asyncAssert.js';
+import clientMocker from './httpClientMocker.js';
+
 import fetchOptions from '../src/fetchOptions.js';
 import {
   OPTIONS_LOADED_TYPE,
   OPTIONS_LOAD_FAILED_TYPE,
 } from '../src/actions.js'
 
-const clientMocker = (passed, response = {}) =>
-  spy(config => new Promise((resolve, reject) => {
-    passed ? resolve(response) : reject({ response });
-  }));
-
 const dispatchMocker = () => spy(() => {});
-
-const asyncAssert = (callback, done) => () => {
-  try {
-    callback();
-    done();
-  } catch (err) {
-    done(err);
-  }
-}
 
 describe('fetchOptions', () => {
   it('calls client once', () => {
