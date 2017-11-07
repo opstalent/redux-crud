@@ -13,7 +13,9 @@ class PageSwitch extends React.Component {
       const match = this.props.matcher(this.props.url, routes);
       const Component = match.component;
 
-      return <Component />;
+      return <Component
+        handlerBuilder={ this.props.formHandlerBuilder }
+        />;
     } catch (error) {
       this.props.dispatch(URL_MATCH_FAILURE({
         url: this.props.url,
@@ -37,6 +39,7 @@ PageSwitch.propTypes = {
     action: PropTypes.string.isRequired,
   })).isRequired,
   url: PropTypes.string.isRequired,
+  formHandlerBuilder: PropTypes.any,
   routeResolver: PropTypes.func,
   matcher: PropTypes.func,
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Route as BaseRoute } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import formHandlerBuilder from './page/formHandler/formHandlerBuilder.js';
 import PageSwitch from './page/PageSwitch.js';
 import Loader from './Loader.js';
 
@@ -22,11 +23,20 @@ class Route extends React.Component
     return undefined !== this.getOptions();
   }
 
+  createFormHandlerBuilder() {
+    const builder = new this.props.formHandlerBuilderClass();
+    builder.setBaseUrl(this.props.apiUrl);
+    builder.setDispatcher(this.props.dispatch);
+
+    return builder;
+  }
+
   onMatch = ({ match, location: { pathname } }) => {
     if (this.isLoaded()) {
       return <PageSwitch
         options={ this.getOptions() }
         url={ pathname }
+        formHandlerBuilder={ this.createFormHandlerBuilder() }
       />;
     } else {
       return <Loader
@@ -56,17 +66,20 @@ Route.propTypes = {
     url: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,
   }))),
+  formHandlerBuilderClass: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
 };
 
 Route.defaultProps = {
   options: {},
+  formHandlerBuilderClass: formHandlerBuilder,
 };
 
 const mapStateToProps = state => ({
   options: state.crud,
 });
 
-export default connect(mapStateToProps)(Route);
+export default connect(mapStateToProps, dispatch => ({ dispatch }))(Route);
 
 export {
   Route,

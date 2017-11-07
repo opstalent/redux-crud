@@ -6,6 +6,16 @@ The `PageSwitch` component is mounting CRUD page from given URL and OPTIONS conf
 When no matching page found `Page not found` message will be displayed and action
 `REDUXCRUD_URL_MATCH_FAILURE` will be raised.
 
+## Methods reference
+
+#### `resolve() : Element`
+
+Function which resolves component rendered by `PageSwitch`.
+It is matching components by `url` passed with [`url`](#url--string-required) prop.
+
+When no matching component found it is dispatching action `REDUXCRUD_URL_MATCH_FAILURE`
+by calling method given in [`dispatch`](#dispatch--function-required) prop.
+
 ## Props reference
 
 #### `dispatch : Function` [required]
@@ -55,3 +65,7 @@ By default [`matcher`](../routing/matcher.md) function is passed.
 Return value have to be an object which contains `component` property.
 
 If no match found function have to throw an exception.
+
+#### `formHandlerBuilder : any`
+
+Form handler builder prop passed down to element returned by [`resolve`](#resolve) method.
