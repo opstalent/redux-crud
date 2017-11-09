@@ -25,3 +25,9 @@
 > Class which is creating function used to handle form submission.
 
 [`View source`](../../../src/page/formHandler/formHandler.js)
+
+## [`page/formHandler/formHandlerBuilder`](formHandler/formHandlerBuilder.md)
+
+> Builder class which builds [`FormHandler`](./formHandler/formHandler.md) instance.
+
+[`View source`](../../../src/page/formHandler/formHandlerBuilder.js)

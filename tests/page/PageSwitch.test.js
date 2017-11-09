@@ -34,6 +34,23 @@ describe('page/PageSwitch.resolve', () => {
     expect(React.isValidElement(instance.resolve())).to.equal(true);
   });
 
+  it('passes `handlerBuilder` property into rendered component when match has been found', () => {
+    const option = {
+      url: '/some/matching/url',
+      action: 'add',
+    };
+    const instance = buildComponentInstance({
+      options: {
+        'route': option,
+      },
+      url: '/some/matching/url/add',
+    });
+
+    const component = instance.resolve();
+
+    expect(component.props).to.have.property('handlerBuilder');
+  });
+
   it('calls route resolver', () => {
     const resolver = spy(() => {});
 
@@ -70,7 +87,7 @@ describe('page/PageSwitch.resolve', () => {
     expect(matcher.called).to.equal(true);
   });
 
-  it('calls dispatch with URL_MATCH_FAILURE_TYPE action when option had not been found', () => {
+  it('calls dispatch with URL_MATCH_FAILURE_TYPE action when option has not been found', () => {
     const dispatch = spy(() => {});
     const instance = buildComponentInstance({
       options: {},
@@ -83,11 +100,11 @@ describe('page/PageSwitch.resolve', () => {
     expect(dispatch.getCall(0).args[0]).to.have.property('type', URL_MATCH_FAILURE_TYPE);
   });
 
-  it('does not dispatching URL_MATCH_FAILURE_TYPE action when option had been found', () => {
+  it('does not dispatching URL_MATCH_FAILURE_TYPE action when option has been found', () => {
     const dispatch = spy(() => {});
     const instance = buildComponentInstance({
       options: {
-        'route': { url: '/some/matching/url', action: 'list', }
+        'route': { url: '/some/matching/url', action: 'list' }
       },
       url: '/some/matching/url/list',
       dispatch,
@@ -97,7 +114,7 @@ describe('page/PageSwitch.resolve', () => {
     dispatch.getCalls().forEach(item => expect(item.args).to.not.have.property('type', URL_MATCH_FAILURE_TYPE));
   });
 
-  it('calls dispatch with url, options and error in payload when option had not been found', () => {
+  it('calls dispatch with url, options and error in payload when option has not been found', () => {
     const dispatch = spy(() => {});
     const instance = buildComponentInstance({
       options: {},
