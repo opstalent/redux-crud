@@ -35,13 +35,6 @@ describe('page/resolver/field/inputGenerator', () => {
     expect(wrapper.containsMatchingElement(<input type="text" />)).to.equal(true);
   });
 
-  it('returns React component containing `input` tag which is passing its props into `input`', () => {
-    const Input = generator('someType');
-    const wrapper = shallow(<Input someProp="someValue" type="type" />);
-
-    expect(wrapper.containsMatchingElement(<input someProp="someValue" type="someType" />)).to.equal(true);
-  });
-
   it('returns React component containing `input` with predefined props given as argument', () => {
     const Input = generator('someType', {
       justProp: 'prop',

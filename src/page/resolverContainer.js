@@ -1,7 +1,9 @@
 import field from './resolver/fieldResolver.js';
-import wrapper from './resolver/wrapperResolver.js';
+import pageWrapper from './resolver/pageWrapperResolver.js';
+import fieldWrapper from './resolver/fieldWrapperResolver.js';
 
 export default {
-  wrapper,
+  pageWrapper,
+  fieldWrapper,
   field,
 };

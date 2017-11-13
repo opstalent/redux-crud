@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default (type, baseProps) => props => <input { ...props } { ...baseProps } type={ type } />;
+export default (type, baseProps) => ({ input }) => <input { ...input } { ...baseProps } type={ type } />;

@@ -8,7 +8,7 @@
 
 [`View source`](../../../src/page/PageSwitch.js)
 
-## [`page/resolver`](resolver.md)
+## [`page/resolverContainer`](resolverContainer.md)
 
 > Object to hold default resolvers
 
@@ -20,14 +20,14 @@
 
 [`View source`](../../../src/page/resolver/field/inputGenerator.js)
 
-## [`page/formHandler/formHandler`](formHandler/formHandler.md)
+## [`page/form/formHandler`](form/formHandler.md)
 
 > Class which is creating function used to handle form submission.
 
-[`View source`](../../../src/page/formHandler/formHandler.js)
+[`View source`](../../../src/page/form/formHandler.js)
 
-## [`page/formHandler/formHandlerBuilder`](formHandler/formHandlerBuilder.md)
+## [`page/form/formHandlerBuilder`](form/formHandlerBuilder.md)
 
-> Builder class which builds [`FormHandler`](./formHandler/formHandler.md) instance.
+> Builder class which builds [`FormHandler`](./form/formHandler.md) instance.
 
-[`View source`](../../../src/page/formHandler/formHandlerBuilder.js)
+[`View source`](../../../src/page/form/formHandlerBuilder.js)

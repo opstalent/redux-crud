@@ -13,10 +13,18 @@ export default (type) => {
     case 'text':
       return inputGenerator(type);
     case 'textarea':
-      return props => <textarea { ...props } />;
+      return ({ input }) => <textarea { ...input } />;
     case 'submit':
-      return props => <button { ...props } type="submit" />;
+      return ({ input }) => <button { ...input } type="submit" />;
+    case 'choice':
+      return ({ config: { choices = {} }, input }) => (
+        <select { ...input }>
+          { Object.entries(choices).map(choice =>
+            <option value={ choice[1] } key={ choice[1] }>{ choice[0] }</option>
+          ) }
+        </select>
+      );
     default:
-      throw new Error('Invalid argument passed to `resolver`');
+      throw new Error('Invalid argument passed to `fieldResolver`');
   }
 };

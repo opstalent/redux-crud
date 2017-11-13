@@ -1,10 +1,10 @@
-#`wrapperResolver`
-[`View source`](../../../../src/page/resolver/wrapperResolver.js)
+#`pageWrapperResolver`
+[`View source`](../../../../src/page/resolver/pageWrapperResolver.js)
 
 > Function used to render page wrapper.
 
 ```js
-wrapperResolver(type);
+pageWrapperResolver(type);
 ```
 
 #### Parameters
@@ -19,6 +19,6 @@ Type of wrapper to render. Allowed types are:
 
 #### Return value
 
-`wrapperResolver` returns React component.
+`pageWrapperResolver` returns React component.
 
 If `type` is not valid an `Error` will be thrown.

@@ -1,5 +1,5 @@
 #`formHandler`
-[`View source`](../../../../src/page/formHandler/formHandler.js)
+[`View source`](../../../../src/page/form/formHandler.js)
 
 > Class which is creating function used to handle form submission.
 > It is fully compatible with [`redux-form`](https://github.com/erikras/redux-form).
@@ -41,7 +41,7 @@ Result of function is a
 ##### Handling server's response
 
 ```js
-import FormHandler from '@opstalent/crud/page/formHandler/formHandler.js';
+import FormHandler from '@opstalent/crud/page/form/formHandler.js';
 
 const handler = new FormHandler({
   baseUrl: 'http://dummy.com',
@@ -62,7 +62,7 @@ handler(data)
 ##### Overriding default HTTP client
 
 ```js
-import FormHandler from '@opstalent/crud/page/formHandler/formHandler.js';
+import FormHandler from '@opstalent/crud/page/form/formHandler.js';
 
 const handler = new FormHandler({
   baseUrl: 'http://dummy.com',
