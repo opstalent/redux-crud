@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route as BaseRoute } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import formHandlerBuilder from './page/formHandler/formHandlerBuilder.js';
+import formHandlerBuilder from './page/form/formHandlerBuilder.js';
 import PageSwitch from './page/PageSwitch.js';
 import Loader from './Loader.js';
 

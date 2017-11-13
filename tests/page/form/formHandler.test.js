@@ -5,7 +5,7 @@ import asyncAssert from '../../asyncAssert.js';
 import httpClientMocker from '../../httpClientMocker.js';
 
 import { FORM_SUBMISSION_SUCCEEDED_TYPE, FORM_SUBMISSION_FAILED_TYPE } from '../../../src/actions.js';
-import Handler from '../../../src/page/formHandler/formHandler.js';
+import Handler from '../../../src/page/form/formHandler.js';
 
 describe('page/formHandler/formHandler', () => {
   it('is a function', () => {
