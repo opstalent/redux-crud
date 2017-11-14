@@ -44,7 +44,6 @@ Loader.propTypes = {
 };
 
 Loader.defaultProps = {
-  fetch: fetchOptions,
   options: {},
 };
 
