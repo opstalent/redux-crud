@@ -1,13 +1,13 @@
 import React from 'react';
 import { expect } from 'chai';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 
 import resolver from '../../../src/page/resolver/fieldResolver.js';
 
 configure({ adapter: new Adapter() });
 
-describe('page/resolver/field', () => {
+describe('page/resolver/fieldResolver', () => {
   it('is a function', () => {
     expect(resolver).to.be.a('function');
   });
@@ -77,5 +77,20 @@ describe('page/resolver/field', () => {
     const wrapper = shallow(<Input />);
 
     expect(wrapper.containsMatchingElement(<button type="submit" />)).to.equal(true);
+  });
+
+  it('returns a component containing select element with proper options when `choice` config passed', () => {
+    const choices = {
+      Label: 'value',
+      Label2: 'value2',
+    };
+    const Input = resolver('choice');
+    const wrapper = shallow(<Input config={ { choices } } />);
+
+    expect(wrapper.render().is('select')).to.equal(true);
+
+    for (const label in choices) {
+      expect(wrapper.containsMatchingElement(<option value={ choices[label] }>{ label }</option>)).to.equal(true);
+    }
   });
 });

@@ -1,9 +1,8 @@
-import React from 'react';
 import { expect } from 'chai';
 
-import wrapper from '../../../src/page/resolver/wrapperResolver.js';
+import wrapper from '../../../src/page/resolver/pageWrapperResolver.js';
 
-describe('page/resolver/wrapper', () => {
+describe('page/resolver/pageWrapperResolver', () => {
   it('is a function', () => {
     expect(wrapper).to.be.a('function');
   });

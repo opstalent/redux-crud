@@ -1,5 +1,5 @@
 #`formHandlerBuilder`
-[`View source`](../../../../src/page/formHandler/formHandlerBuilder.js)
+[`View source`](../../../../src/page/form/formHandlerBuilder.js)
 
 > Builder class which builds [`FormHandler`](./formHandler.md) instance.
 

@@ -12,6 +12,7 @@ fieldResolver(type);
 ##### `type : string`
 
 Type of field to render. Allowed types are:
+- `choice`,
 - `date`,
 - `datetime`,
 - `email`,
