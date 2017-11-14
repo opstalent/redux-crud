@@ -13,3 +13,9 @@
 > Function to match url to given routes
 
 [`View source`](../../../src/routing/matcher.js)
+
+## [`routing/pageResolver`](pageResolver.md)
+
+> Function used to resolve page to display by option type
+
+[`View source`](../../../src/routing/pageResolver.js)
