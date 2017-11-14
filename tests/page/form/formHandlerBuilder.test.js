@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import Builder from '../../../src/page/formHandler/formHandlerBuilder.js';
+import Builder from '../../../src/page/form/formHandlerBuilder.js';
 
 describe('page/formHandler/formHandlerBuilder', () => {
   it('is a function', () => {
