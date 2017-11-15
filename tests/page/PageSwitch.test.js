@@ -34,6 +34,57 @@ describe('page/PageSwitch.resolve', () => {
     expect(React.isValidElement(instance.resolve())).to.equal(true);
   });
 
+  it('passes `config` into rendered component when match has been found', () => {
+    const option = {
+      url: '/some/matching/url',
+      action: 'add',
+    };
+    const instance = buildComponentInstance({
+      options: {
+        'route': option,
+      },
+      url: '/some/matching/url/add',
+    });
+
+    const component = instance.resolve();
+
+    expect(component.props).to.have.property('config');
+    expect(component.props.config).to.deep.equal(option)
+  });
+
+  it('passes `handlerBuilder` property into rendered component when match has been found', () => {
+    const instance = buildComponentInstance({
+      options: {
+        'route': {
+          url: '/some/matching/url',
+          action: 'add',
+        },
+      },
+      url: '/some/matching/url/add',
+    });
+
+    const component = instance.resolve();
+
+    expect(component.props).to.have.property('handlerBuilder');
+  });
+
+  it('passes `form` property into rendered component when match has been found', () => {
+    const option = {
+      url: '/some/matching/url',
+      action: 'add',
+    };
+    const instance = buildComponentInstance({
+      options: {
+        'route': option,
+      },
+      url: '/some/matching/url/add',
+    });
+
+    const component = instance.resolve();
+
+    expect(component.props).to.have.property('form');
+  });
+
   it('passes `handlerBuilder` property into rendered component when match has been found', () => {
     const option = {
       url: '/some/matching/url',
@@ -49,6 +100,25 @@ describe('page/PageSwitch.resolve', () => {
     const component = instance.resolve();
 
     expect(component.props).to.have.property('handlerBuilder');
+  });
+
+  it('passes `templateResolver` property into rendered component when match has been found', () => {
+    const option = {
+      url: '/some/matching/url',
+      action: 'add',
+    };
+    const instance = buildComponentInstance({
+      options: {
+        'route': option,
+      },
+      url: '/some/matching/url/add',
+      templateResolver: {},
+    });
+
+    const component = instance.resolve();
+
+    expect(component.props).to.have.property('templateResolver');
+    expect(component.props.templateResolver).to.deep.equal(instance.props.templateResolver);
   });
 
   it('calls route resolver', () => {

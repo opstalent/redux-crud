@@ -84,3 +84,9 @@ A function used to dispatch actions.
 By default `store.dispatch` function is passed by
 [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 HOC from `react-redux`.
+
+#### `templateResolver : any`
+
+A prop passed down to [`PageSwitch`](./page/pageSwitch.md) component.
+
+For more details view [reference for `PageSwitch`](./page/pageSwitch.md#templateresolver--any) component.

@@ -69,3 +69,7 @@ If no match found function have to throw an exception.
 #### `formHandlerBuilder : any`
 
 Form handler builder prop passed down to element returned by [`resolve`](#resolve) method.
+
+#### `templateResolver : any`
+
+A prop passed down to rendered page component.
