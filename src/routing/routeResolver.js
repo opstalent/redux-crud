@@ -1,13 +1,18 @@
 import transformer from '../path/transformer.js';
 import creator from '../path/creator.js';
+import pageResolver from './pageResolver.js';
 
-export default options => Object.values(options).reduce((acc, option = {}) => {
-  acc.push({
-    path: creator(transformer(option.url), option.action),
-    component: ('div'), // @TODO: call component resolver
-    exact: true,
-    strict: false,
-  });
+const resolveRoute = ([name, option]) => ({
+  path: creator(transformer(option.url), option.action),
+  component: pageResolver(option.action),
+  exact: true,
+  strict: false,
+  config: option,
+  key: name,
+});
 
-  return acc;
-}, []);
+export default options => Object.entries(options).map(resolveRoute);
+
+export {
+  resolveRoute,
+};

@@ -1,5 +1,7 @@
 import { expect } from 'chai';
-import resolver from '../../src/routing/routeResolver.js';
+
+import CreateForm from '../../src/page/CreateForm.js';
+import resolver, { resolveRoute } from '../../src/routing/routeResolver.js';
 
 const routeGenerator = (length) => {
   const arr = {};
@@ -22,54 +24,132 @@ describe('routing/routeResolver', () => {
     const arg = routeGenerator(3);
     expect(resolver(arg).length).to.equal(3);
   });
+});
 
-  it('returns an array of objects containing field `path`', () => {
-    const arg = routeGenerator(3);
-    resolver(arg).forEach(item => expect(item).to.include.key('path'));
+describe('routing/routeResolver.resolveRoute', () => {
+  it('returns object', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.be.an('object');
   });
 
-  it('returns an array with object which has path matching simple URL passed with OPTION', () => {
-    const arg = {
-      'users_list': {
-        url: '/users',
-        action: 'edit',
-      },
+  it('returns object containing field `path`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.include.key('path');
+  });
+
+  it('returns an object which has path matching simple URL passed with OPTION', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/users',
+      action: 'edit',
+    }]);
+
+    expect(resolved).to.include({ path: '/users/edit' });
+  });
+
+  it('returns an object which has path matching wildcarded URL passed with OPTION', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/user/{id}',
+      action: 'add',
+    }]);
+
+    expect(resolved).to.include({ path: '/user/:id/add' });
+  });
+
+  it('returns an object containing field `component`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.include.key('component');
+  });
+
+  it('returns an object containing `CreateForm` component when given `action` is `add`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'add',
+    }]);
+
+    expect(resolved.component).to.equal(CreateForm);
+  });
+
+  it('returns an object containing field `strict`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.include.key('strict');
+  });
+
+  it('returns an object which have field `strict` set to `false`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved.strict).to.equal(false);
+  });
+
+  it('returns an object containing field `exact`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.include.key('exact');
+  });
+
+  it('returns an object which have field `exact` set to `true`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved.exact).to.equal(true);
+  });
+
+  it('returns an object containing field `config`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.include.key('config');
+  });
+
+  it('returns an object which have field `config` with passed option', () => {
+    const option = {
+      url: '/some/url',
+      action: 'add',
     };
-    expect(resolver(arg)[0]).to.include({ path: '/users/edit' });
+
+    expect(resolveRoute(['route_name', option]).config).to.deep.equal(option);
   });
 
-  it('returns an array with object which has path matching wildcarded URL passed with OPTION', () => {
-    const arg = {
-      'users_list': {
-        url: '/user/{id}',
-        action: 'add',
-      },
-    };
-    expect(resolver(arg)[0]).to.include({ path: '/user/:id/add' });
+  it('returns an object containing field `key`', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
+
+    expect(resolved).to.include.key('key');
   });
 
-  it('returns an array of objects containing field `component`', () => {
-    const arg = routeGenerator(3);
-    resolver(arg).forEach(item => expect(item).to.include.key('component'));
-  });
+  it('returns an object which have field `key` with passed name', () => {
+    const resolved = resolveRoute(['route_name', {
+      url: '/some/url',
+      action: 'list',
+    }]);
 
-  it('returns an array of objects containing field `strict`', () => {
-    const arg = routeGenerator(3);
-    resolver(arg).forEach(item => expect(item).to.include.key('strict'));
-  });
-
-  it('returns an array with objects which have field `strict` set to `false`', () => {
-    const arg = routeGenerator(2);
-    resolver(arg).forEach(item => expect(item.strict).to.equal(false));
-  });
-
-  it('returns an array of objects containing field `exact`', () => {
-    const arg = routeGenerator(5);
-    resolver(arg).forEach(item => expect(item).to.include.key('exact'));
-  });
-
-  it('returns an array with objects which have field `exact` set to `true`', () => {
-    const arg = routeGenerator(2);
-    resolver(arg).forEach(item => expect(item.exact).to.equal(true));
+    expect(resolved.key).to.equal('route_name');
   });
 });
