@@ -8,6 +8,12 @@
 
 [`View source`](../../../src/page/PageSwitch.js)
 
+## [`page/CreateForm`](createForm.md)
+
+> React component which handles create form.
+
+[`View source`](../../../src/page/CreateForm.js)
+
 ## [`page/resolverContainer`](resolverContainer.md)
 
 > Object to hold default resolvers
