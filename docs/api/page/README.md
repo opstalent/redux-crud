@@ -14,6 +14,12 @@
 
 [`View source`](../../../src/page/CreateForm.js)
 
+## [`page/UpdateForm`](updateForm.md)
+
+> React component which handles update form.
+
+[`View source`](../../../src/page/UpdateForm.js)
+
 ## [`page/resolverContainer`](resolverContainer.md)
 
 > Object to hold default resolvers
