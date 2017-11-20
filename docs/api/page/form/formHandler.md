@@ -41,7 +41,7 @@ Result of function is a
 ##### Handling server's response
 
 ```js
-import FormHandler from '@opstalent/crud/page/form/formHandler.js';
+import FormHandler from '@opstalent/redux-crud/page/form/formHandler.js';
 
 const handler = new FormHandler({
   baseUrl: 'http://dummy.com',
@@ -62,7 +62,7 @@ handler(data)
 ##### Overriding default HTTP client
 
 ```js
-import FormHandler from '@opstalent/crud/page/form/formHandler.js';
+import FormHandler from '@opstalent/redux-crud/page/form/formHandler.js';
 
 const handler = new FormHandler({
   baseUrl: 'http://dummy.com',
