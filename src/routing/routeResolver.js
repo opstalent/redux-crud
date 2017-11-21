@@ -1,4 +1,4 @@
-import transformer from '../path/transformer.js';
+import transformer from '../path/wildcardTransformer.js';
 import creator from '../path/creator.js';
 import pageResolver from './pageResolver.js';
 

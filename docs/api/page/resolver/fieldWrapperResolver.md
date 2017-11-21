@@ -12,10 +12,7 @@ fieldWrapperResolver(type);
 ##### `type : string`
 
 Type of wrapper to render. Allowed types are:
-- `add`,
-- `edit`,
-- `list`,
-- `show`.
+- `form`.
 
 #### Return value
 

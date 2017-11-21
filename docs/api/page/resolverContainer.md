@@ -22,3 +22,9 @@
 > Function used to render page fields.
 
 [`View details`](resolver/fieldResolver.md)
+
+##### `entityAttribute : Function`
+
+> Function used to render entity details attribute.
+
+[`View details`](resolver/entityAttributeResolver.md)

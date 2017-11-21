@@ -20,17 +20,42 @@
 
 [`View source`](../../../src/page/UpdateForm.js)
 
+## [`page/EntityPage`](entityPage.md)
+
+> React component which handles entity details page.
+
+[`View source`](../../../src/page/EntityPage.js)
+
+## [`page/entityGetter`](entityGetter.md)
+
+> The `entityGetter` function is component decorator which downloads
+> details of entity from API.
+
+[`View source`](../../../src/page/entityGetter.js)
+
+## [`page/templated`](templated.md)
+
+> Component decorator which passes `templateResolver` prop into wrapped component.
+
+[`View source`](../../../src/page/templated.js)
+
 ## [`page/resolverContainer`](resolverContainer.md)
 
 > Object to hold default resolvers
 
-[`View source`](../../../src/page/resolver.js)
+[`View source`](../../../src/page/resolverContainer.js)
 
 ## [`page/resolver/field/inputGenerator`](resolver/field/inputGenerator.md)
 
 > Function used by [`fieldResolver`](resolver/fieldResolver.md) to generate `input` fields.
 
 [`View source`](../../../src/page/resolver/field/inputGenerator.js)
+
+## [`page/resolver/field/FlatFieldDescription`](resolver/field/flatFieldDescription.md)
+
+> Component returned by [`entityAttributeResolver`](resolver/entityAttributeResolver.md) when flat type passed.
+
+[`View source`](../../../src/page/resolver/field/FlatFieldDescription.js)
 
 ## [`page/form/formHandler`](form/formHandler.md)
 

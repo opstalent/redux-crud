@@ -3,18 +3,11 @@
 
 The `FieldComponent` component resolves and renders form fields by given props.
 
-## Methods reference
-
-#### `getTemplateResolver() : object`
-
-`getTemplateResolver` function returns template resolver object.
-
-It returns [`templateResolver`](#templateresolver--object) prop if it is defined.
-Otherwise [`resolverContainer`](../resolverContainer.md) object is returned.
+The `FieldComponent` component is wrapped with [`templated`](../templated.md) decorator.
 
 ## Props reference
 
-#### `templateResolver : object`
+#### `templateResolver : object` [required]
 
 Object which contains resolvers for field wrapper and field component.
 
@@ -28,7 +21,6 @@ Object which contains configuration for rendering `FieldComponent`.
 
 It has to have following properties:
 - `label` which contains content of field label,
-- `wrapperType` which contains type of displayed page,
 - `type` which contains type of field to display.
 
 #### `input : object` [required]

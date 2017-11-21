@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (type) => {
   switch(type) {
-    case 'add':
+    case 'form':
       return ({ label, field, children, ...props }) => (
         <div { ...props }>
           <label htmlFor={ field }>{ label }</label>

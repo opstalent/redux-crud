@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import resolverContainer from '../resolverContainer.js';
+import templated from '../templated.js';
 
 class FieldComponent extends Component
 {
   constructor(props) {
     super(props);
 
-    this.wrapper = this.getTemplateResolver().fieldWrapper(props.config.wrapperType);
-    this.component = this.getTemplateResolver().field(props.config.type);
-  }
-
-  getTemplateResolver() {
-    return this.props.templateResolver || resolverContainer;
+    this.wrapper = this.props.templateResolver.fieldWrapper('form');
+    this.component = this.props.templateResolver.field(props.config.type);
   }
 
   render() {
@@ -34,10 +30,9 @@ FieldComponent.propTypes = {
   templateResolver: PropTypes.shape({
     fieldWrapper: PropTypes.func.isRequired,
     field: PropTypes.func.isRequired,
-  }),
+  }).isRequired,
   config: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    wrapperType: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
   }).isRequired,
   input: PropTypes.shape({
@@ -45,4 +40,6 @@ FieldComponent.propTypes = {
   }).isRequired,
 };
 
-export default FieldComponent;
+export { FieldComponent };
+
+export default templated()(FieldComponent);

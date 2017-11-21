@@ -1,4 +1,4 @@
-#`fieldResolver`
+# `fieldResolver`
 [`View source`](../../../../src/page/resolver/fieldResolver.js)
 
 > Function used to render page fields.

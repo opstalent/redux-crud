@@ -8,14 +8,15 @@ import resolverContainer from './resolverContainer.js';
 import FieldComponent from './form/FieldComponent.js';
 import formNamer from './form/formNamer.js';
 import formHandler from './form/formHandler.js';
+import templated from './templated.js';
 
 class CreateForm extends React.Component
 {
   constructor(props) {
     super(props);
 
-    this.pageWrapper = this.getPageResolver().pageWrapper('add');
-    this.fieldWrapper = this.getPageResolver().fieldWrapper('add');
+    this.pageWrapper = props.templateResolver.pageWrapper('form');
+    this.fieldWrapper = props.templateResolver.fieldWrapper('form');
   }
 
   componentWillReceiveProps(props) {
@@ -25,10 +26,6 @@ class CreateForm extends React.Component
     ) {
       this.buildHandler();
     }
-  }
-
-  getPageResolver() {
-    return this.props.templateResolver || resolverContainer;
   }
 
   getHandler() {
@@ -57,8 +54,7 @@ class CreateForm extends React.Component
     <Field
       name={ key }
       key={ key }
-      config={ { wrapperType: 'add', ...config } }
-      templateResolver={ this.props.templateResolver }
+      config={ config }
       component={ FieldComponent }
     />
   );
@@ -90,7 +86,8 @@ CreateForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   templateResolver: PropTypes.shape({
     pageWrapper: PropTypes.func.isRequired,
-  }),
+    fieldWrapper: PropTypes.func.isRequired,
+  }).isRequired,
   apiUrl: PropTypes.string.isRequired,
   fetchClient: PropTypes.func,
   dispatch: PropTypes.func.isRequired,
@@ -103,5 +100,6 @@ export {
 export default compose(
   connect(null, dispatch => ({ dispatch })),
   formNamer,
-  reduxForm()
+  reduxForm(),
+  templated()
 )(CreateForm);

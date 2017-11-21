@@ -2,12 +2,18 @@
 
 > Namespace for handling path-related issues
 
-## [`path/transformer`](transformer.md)
+## [`path/wildcardTransformer`](wildcardTransformer.md)
 
-> Function transforming URL templates from Symfony router format to
+> Function which transforms URL templates from Symfony router format to
 > [`react-router`](https://github.com/ReactTraining/react-router) format.
 
-[`View source`](../../../src/path/transformer.js)
+[`View source`](../../../src/path/wildcardTransformer.js)
+
+## [`path/wildcardBinder`](wildcardBinder.md)
+
+> Function which binds wildcarded url with given params.
+
+[`View source`](../../../src/path/wildcardBinder.js)
 
 ## [`path/creator`](creator.md)
 

@@ -16,15 +16,15 @@ describe('page/resolver/fieldWrapperResolver', () => {
     expect(() => wrapper()).to.throw();
   });
 
-  it('returns a component with `div` tag as top level container when passed argument is `add`', () => {
-    const Component = wrapper('add');
+  it('returns a component with `div` tag as top level container when passed argument is `form`', () => {
+    const Component = wrapper('form');
     const element = render(<Component />);
 
     expect(element.is('div')).to.equal(true);
   });
 
-  it('returns a component which contains `label` element', () => {
-    const Component = wrapper('add');
+  it('returns a component which contains `label` element when passed argument is `form`', () => {
+    const Component = wrapper('form');
     const element = shallow(<Component label="Some label" field="fieldName" />);
 
     expect(element.containsMatchingElement(<label htmlFor="fieldName">Some label</label>)).to.equal(true);
