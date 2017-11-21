@@ -4,81 +4,29 @@ import { spy } from 'sinon';
 import { configure, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { Field } from 'redux-form';
-import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import Form, { CreateForm } from '../../src/page/CreateForm.js'
+import testGenerator, { baseProps } from './form/formTestGenerator.js';
 
 configure({ adapter: new Adapter() });
-
-const baseProps = {
-  config: {
-    url: '/some/url',
-    method: 'PUT',
-  },
-  handleSubmit: () => () => {},
-  handlerBuilder: {
-    build: () => () => {},
-    setUrl: () => {},
-    setMethod: () => {},
-  },
-};
+testGenerator(Form, 'page/CreateForm');
 
 const buildComponent = (props = {}) =>
   shallow(<CreateForm { ...baseProps } { ...props } />);
 
 const buildComponentInstance = (props = {}) =>
-  buildComponent(props).instance();
-
-describe('page/CreateForm', () => {
-  it('is React component', () => {
-    expect(Form.prototype).to.be.an.instanceof(Component);
-  });
-
-  it('renders as much form fields as given in `config` prop under key `form` when all of them are valid', () => {
-    const config = {
-      ...baseProps.config,
-      form: {
-        fieldOne: { type: 'text', label: 'Label' },
-        fieldTwo: { type: 'submit', label: 'Label' },
-        fieldThree: { type: 'file', label: 'Label' },
-      },
-    };
-
-    const wrapper = render((
-      <Provider store={ configureStore()() }>
-        <Form
-          { ...baseProps }
-          config={ config }
-          form="test_form"
-        />
-      </Provider>
-    ));
-
-    expect([
-      ...wrapper.find('input'),
-      ...wrapper.find('button'),
-      ...wrapper.find('textarea'),
-    ]).to.have.length(3);
-  });
-
-  it('passes `onSubmit` prop to top level wrapper', () => {
-    const wrapper = buildComponent();
-
-    expect(wrapper.props()).to.have.property('onSubmit');
-    expect(wrapper.prop('onSubmit')).to.be.a('function');
-  });
-});
+  new CreateForm({ ...baseProps, ...props });
 
 describe('page/CreateForm.componentWillReceiveProps', () => {
   it('is a function', () => {
-    const instance = new CreateForm(baseProps);
+    const instance = buildComponentInstance(baseProps);
 
     expect(instance.componentWillReceiveProps).to.be.a('function');
   });
 
   it('does not update `handler` when neither method nor url in `config` prop has been changed', () => {
-    const instance = new CreateForm(baseProps);
+    const instance = buildComponentInstance(baseProps);
     const handler = instance.handler;
 
     instance.componentWillReceiveProps({
@@ -89,7 +37,7 @@ describe('page/CreateForm.componentWillReceiveProps', () => {
   });
 
   it('updates `handler` property when new url in `config` prop is given', () => {
-    const instance = new CreateForm({
+    const instance = buildComponentInstance({
       ...baseProps,
       config: {
         ...baseProps.config,
@@ -109,7 +57,7 @@ describe('page/CreateForm.componentWillReceiveProps', () => {
   });
 
   it('updates `handler` property when new method in `config` prop is given', () => {
-    const instance = new CreateForm({
+    const instance = buildComponentInstance({
       ...baseProps,
       config: {
         ...baseProps.config,
@@ -188,7 +136,7 @@ describe('page/CreateForm.buildHandler', () => {
   });
 
   it('updates `handler` property', () => {
-    const instance = new CreateForm(baseProps);
+    const instance = buildComponentInstance(baseProps);
     const handler = instance.handler;
 
     instance.buildHandler();
@@ -206,7 +154,7 @@ describe('page/CreateForm.getHandler', () => {
   });
 
   it('calls `buildHandler` at first call', () => {
-    const instance = new CreateForm(baseProps);
+    const instance = buildComponentInstance(baseProps);
     instance.buildHandler = spy(instance.buildHandler);
 
     instance.getHandler();
@@ -214,7 +162,7 @@ describe('page/CreateForm.getHandler', () => {
   });
 
   it('does not call `buildHandler` at second call', () => {
-    const instance = new CreateForm(baseProps);
+    const instance = buildComponentInstance(baseProps);
     instance.buildHandler = spy(instance.buildHandler);
 
 

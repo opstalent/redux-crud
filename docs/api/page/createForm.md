@@ -1,4 +1,4 @@
-#`CreateForm`
+# `CreateForm`
 [`View source`](../../../src/page/CreateForm.js)
 
 The `CreateForm` component displays and handles create form from given [`config`](#config--object-required). 
