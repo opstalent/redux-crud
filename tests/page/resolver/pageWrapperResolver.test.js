@@ -1,6 +1,11 @@
+import React from 'react';
 import { expect } from 'chai';
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 
 import wrapper from '../../../src/page/resolver/pageWrapperResolver.js';
+
+configure({ adapter: new Adapter() });
 
 describe('page/resolver/pageWrapperResolver', () => {
   it('is a function', () => {
@@ -11,7 +16,10 @@ describe('page/resolver/pageWrapperResolver', () => {
     expect(() => wrapper()).to.throw();
   });
 
-  it('returns `form` component when passed argument is `add`', () => {
-    expect(wrapper('add')).to.equal('form');
+  it('returns component which contains `form` tag when passed argument is `add`', () => {
+    const Component = wrapper('add');
+    const rendered = mount(<Component />);
+
+    expect(rendered.find('form').length).to.be.above(0);
   });
 });

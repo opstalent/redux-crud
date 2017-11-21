@@ -61,7 +61,7 @@ class CreateForm extends React.Component
   render() {
     const Wrapper = this.pageWrapper;
     return (
-      <Wrapper onSubmit={ this.props.handleSubmit(this.getHandler()) }>
+      <Wrapper onSubmit={ this.props.handleSubmit(this.getHandler()) } config={ this.props.config }>
         { this.prepareFields(this.props.config.form) }
       </Wrapper>
     );

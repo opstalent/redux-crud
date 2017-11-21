@@ -3,7 +3,7 @@ import React from 'react';
 export default (type) => {
   switch(type) {
     case 'add':
-      return 'form';
+      return ({ config, ...props }) => <form { ...props } />;
     case 'edit':
     case 'list':
     case 'show':

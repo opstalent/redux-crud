@@ -90,3 +90,47 @@ HOC from `react-redux`.
 A prop passed down to [`PageSwitch`](./page/pageSwitch.md) component.
 
 For more details view [reference for `PageSwitch`](./page/pageSwitch.md#templateresolver--any) component.
+
+## Examples
+
+#### Defining custom [`fetchClient`](#fetchclient--any)
+
+```js
+import { Route } from '@opstalent/redux-crud';
+
+const fetchClient = ({ url }) => new Promise((resolve, reject) => {
+  // ...
+});
+
+const DummyRoute = props => (
+  <Route
+    { ...props }
+    fetchClient={ fetchClient }
+  />
+);
+```
+
+More details about `fetchClient` function can be found in
+[`Loader` component's reference](./loader.md#fetchclient--function-required).
+
+#### Using custom [`templateResolver`](#templateresolver--any)
+
+```js
+import { Route } from '@opstalent/redux-crud'
+
+const templateResolver = {
+  pageWrapper: () => 'div',
+  fieldWrapper: () => 'div',
+  field: () => 'input',
+};
+
+const DummyRoute = props => (
+  <Route
+    { ...props }
+    templateResolver={ templateResolver }
+  />
+);
+```
+
+More details about `templateResolver` object can be found in
+[`resolverContainer` object's reference](./page/resolverContainer.md).
