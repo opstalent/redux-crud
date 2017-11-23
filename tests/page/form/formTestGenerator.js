@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { expect } from 'chai';
-import { render } from 'enzyme';
+import { render, shallow } from 'enzyme';
 
 import providerWrapper from '../../providerWrapper.js';
 
 const baseProps = {
-  config: {
-    url: '/some/url',
-    method: 'PUT',
+  match: {
+    config: {
+      url: '/some/url',
+      method: 'PUT',
+    },
+    key: 'some_key',
   },
+  apiUrl: 'someUrl',
   handleSubmit: () => () => {},
   handlerBuilder: {
     build: () => () => {},
@@ -24,15 +28,15 @@ export default (Form, description, defaultProps = {}) => {
     ...baseProps,
     ...defaultProps,
   };
-
   describe(description, () => {
-    it('is React component', () => {
-      expect(Form.prototype).to.be.an.instanceof(Component);
+    it('is renderable', () => {
+      const ProviderComponent = providerWrapper()(Form);
+      expect(() => shallow(<ProviderComponent { ...props } />)).to.not.throw();
     });
 
     it('renders as much form fields as given in `config` prop under key `form` when all of them are valid', () => {
       const config = {
-        ...props.config,
+        ...props.match.config,
         form: {
           fieldOne: { type: 'text', label: 'Label' },
           fieldTwo: { type: 'submit', label: 'Label' },
@@ -44,7 +48,10 @@ export default (Form, description, defaultProps = {}) => {
       const wrapper = render((
         <ProviderComponent
           { ...props }
-          config={ config }
+          match={ {
+            ...props.match,
+            config,
+          } }
           form="test_form"
         />
       ));

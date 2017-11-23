@@ -7,27 +7,63 @@ The `UpdateForm` provides `initialValues` for [`CreateForm`](createForm.md).
 
 ## Methods reference
 
-#### `getInitialValues() : object`
+#### `buildTargetUrl() : string`
 
-The `getInitialValues` function returns an object with key-value pairs where key is a
-form field's name and value is initial value of this field.
+The `buildTargetUrl` method fills API target for the form given in `match.config.url` with
+params given in `match.params`.
+
+#### `fetchEntityData()`
+
+The `fetchEntityData` method sends HTTP request to get data of edited entity.
+
+When client succeeds it is dispatching `REDUXCRUD_ENTITY_DATA_DOWNLOAD_SUCCEEDED_TYPE` action.
+Otherwise `REDUXCRUD_ENTITY_DATA_DOWNLOAD_FAILED_TYPE` action is dispatched.
+
+Method uses HTTP client given in [`httpClient`](#httpclient--function-required) prop.
+
+Method uses function given in [`dispatch`](#dispatch--function-required) prop to dispatch actions.
 
 ## Props reference
 
 The `UpdateForm` component is passing down its props to
 [`CreateForm`](createForm.md#props-reference) component.
 
-#### `config : object` [required]
+#### `match : object` [required]
 
-An object with configuration of form which have to be rendered.
+An object with match for rendered [`Route`](../route.md).
 
-The `UpdateForm` component is reading form config and gets initial values for fields.
+It is required that `match` object has following structure:
+```js
+const match = {
+  config: {
+    url: '/user/{id}/',
+  },
+};
+```
 
-The `UpdateForm` component is handling following fields of `config` prop:
+Details of match structure could be found in [`matcher` reference](../routing/matcher.md).
 
-| key | type | description | is required |
-|---|---|---|---|
-| form | object | Form field's config | ✓ |
+#### `fetchClient : Function`
 
-If `form` object item has key `data` it is passed down as initial value of field rendered
-from this item.
+Optional HTTP client passed to [`formHandler`](./form/formHandler) object built by
+[`buildHandler`](#buildhandler--function) method.
+
+Details could be found in [`formHandler` reference](./form/formHandler#overriding-default-http-client).
+
+#### `dispatch : Function` [required]
+
+A function used to dispatch actions.
+
+By default `store.dispatch` function is passed by
+[`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
+HOC from `react-redux`.
+
+#### `entityData : object` [required]
+
+Object containing responses for requests sent by [`fetchEntityData`](#fetchentitydata) method.
+
+Details of `entityData` object's structure could be found in [`reducer` reference](../reducer.md).
+
+By default object is passed by
+[`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
+HOC from `react-redux` and holds results from `store.crud.entityData`.

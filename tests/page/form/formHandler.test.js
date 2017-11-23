@@ -3,6 +3,7 @@ import { spy } from 'sinon';
 
 import asyncAssert from '../../asyncAssert.js';
 import httpClientMocker from '../../httpClientMocker.js';
+import dispatchMocker from '../../dispatchMocker.js';
 
 import { FORM_SUBMISSION_SUCCEEDED_TYPE, FORM_SUBMISSION_FAILED_TYPE } from '../../../src/actions.js';
 import Handler from '../../../src/page/form/formHandler.js';
@@ -106,7 +107,7 @@ describe('page/formHandler/formHandler', () => {
   });
 
   it('returns a function which calls `dispatcher` exactly once', (done) => {
-    const dispatcherSpy = spy(() => {});
+    const dispatcherSpy = dispatchMocker();
     const handler = new Handler({}, dispatcherSpy);
 
     handler.httpClient = httpClientMocker(true);
@@ -121,7 +122,7 @@ describe('page/formHandler/formHandler', () => {
       someVar: 'someValue',
       someObject: {},
     }
-    const dispatcherSpy = spy(() => {});
+    const dispatcherSpy = dispatchMocker();
     const handler = new Handler(config, dispatcherSpy);
 
     handler.httpClient = httpClientMocker(true);
@@ -133,7 +134,7 @@ describe('page/formHandler/formHandler', () => {
 
   it('returns a function which raises FORM_SUBMISSION_SUCCEEDED_TYPE action with response inside of payload when submission has succeeded', (done) => {
     const response = { someKey: 'someValue' };
-    const dispatcherSpy = spy(() => {});
+    const dispatcherSpy = dispatchMocker();
     const handler = new Handler({}, dispatcherSpy);
 
     handler.httpClient = httpClientMocker(true, response);
@@ -145,7 +146,7 @@ describe('page/formHandler/formHandler', () => {
 
   it('returns a function which raises FORM_SUBMISSION_FAILED_TYPE action with response inside of payload when submission has failed', (done) => {
     const response = { someKey: 'someValue' };
-    const dispatcherSpy = spy(() => {});
+    const dispatcherSpy = dispatchMocker();
     const handler = new Handler({}, dispatcherSpy);
 
     handler.httpClient = httpClientMocker(false, response);

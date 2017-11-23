@@ -39,18 +39,24 @@ describe('page/CreateForm.componentWillReceiveProps', () => {
   it('updates `handler` property when new url in `config` prop is given', () => {
     const instance = buildComponentInstance({
       ...baseProps,
-      config: {
-        ...baseProps.config,
-        url: '/some/url',
+      match: {
+        ...baseProps.match,
+        config: {
+          ...baseProps.match.config,
+          url: '/some/url',
+        },
       },
     });
     const handler = instance.handler;
 
     instance.componentWillReceiveProps({
       ...baseProps,
-      config: {
-        ...baseProps.config,
-        url: '/some/another/url',
+      match: {
+        ...baseProps.match,
+        config: {
+          ...baseProps.match.config,
+          url: '/some/another/url',
+        },
       },
     });
     expect(instance.handler).to.not.equal(handler);
@@ -59,9 +65,12 @@ describe('page/CreateForm.componentWillReceiveProps', () => {
   it('updates `handler` property when new method in `config` prop is given', () => {
     const instance = buildComponentInstance({
       ...baseProps,
-      config: {
-        ...baseProps.config,
-        method: 'POST',
+      match: {
+        ...baseProps.match,
+        config: {
+          ...baseProps.match.config,
+          method: 'POST',
+        },
       },
     });
     const handler = instance.handler;
@@ -84,55 +93,6 @@ describe('page/CreateForm.buildHandler', () => {
 
   it('returns a function', () => {
     expect(buildComponentInstance().buildHandler()).to.be.a('function');
-  });
-
-  it('calls method `buildHandler` of object passed by `handlerBuilder` prop', () => {
-    const buildHandler = spy(() => () => {});
-    const instance = buildComponentInstance({
-      handlerBuilder: {
-        ...baseProps.handlerBuilder,
-        build: buildHandler,
-      },
-    });
-    instance.buildHandler();
-
-    expect(buildHandler.called).to.equal(true);
-  });
-
-  it('calls method `setUrl` of object passed by `handlerBuilder` prop with url given in `config` prop', () => {
-    const setUrl = spy(() => {});
-    const instance = buildComponentInstance({
-      handlerBuilder: {
-        ...baseProps.handlerBuilder,
-        setUrl,
-      },
-      config: {
-        ...baseProps.config,
-        url: '/some/url',
-      },
-    });
-    instance.buildHandler();
-
-    expect(setUrl.called).to.equal(true);
-    expect(setUrl.getCall(0).args[0]).to.equal('/some/url');
-  });
-
-  it('calls method `setMethod` of object passed by `handlerBuilder` prop with method given in `config` prop', () => {
-    const setMethod = spy(() => {});
-    const instance = buildComponentInstance({
-      handlerBuilder: {
-        ...baseProps.handlerBuilder,
-        setMethod,
-      },
-      config: {
-        ...baseProps.config,
-        method: 'POST',
-      },
-    });
-    instance.buildHandler();
-
-    expect(setMethod.called).to.equal(true);
-    expect(setMethod.getCall(0).args[0]).to.equal('POST');
   });
 
   it('updates `handler` property', () => {

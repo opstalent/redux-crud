@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import resolverContainer from './resolverContainer.js';
 import FieldComponent from './form/FieldComponent.js';
+import formNamer from './form/formNamer.js';
+import formHandler from './form/formHandler.js';
 
 class CreateForm extends React.Component
 {
@@ -16,8 +20,8 @@ class CreateForm extends React.Component
 
   componentWillReceiveProps(props) {
     if (
-      props.config.url !== this.props.config.url
-      || props.config.method !== this.props.config.method
+      props.match.config.url !== this.props.match.config.url
+      || props.match.config.method !== this.props.match.config.method
     ) {
       this.buildHandler();
     }
@@ -36,10 +40,15 @@ class CreateForm extends React.Component
   }
 
   buildHandler() {
-    this.props.handlerBuilder.setUrl(this.props.config.url);
-    this.props.handlerBuilder.setMethod(this.props.config.method);
+    this.handler = new formHandler({
+      baseUrl: this.props.apiUrl,
+      method: this.props.match.config.method,
+      url: this.props.match.config.url,
+    }, this.props.dispatch);
 
-    this.handler = this.props.handlerBuilder.build();
+    if (this.props.fetchClient) {
+      this.handler.httpClient = this.props.fetchClient;
+    }
 
     return this.handler;
   }
@@ -61,34 +70,38 @@ class CreateForm extends React.Component
   render() {
     const Wrapper = this.pageWrapper;
     return (
-      <Wrapper onSubmit={ this.props.handleSubmit(this.getHandler()) } config={ this.props.config }>
-        { this.prepareFields(this.props.config.form) }
+      <Wrapper onSubmit={ this.props.handleSubmit(this.getHandler()) } config={ this.props.match.config }>
+        { this.prepareFields(this.props.match.config.form) }
       </Wrapper>
     );
   }
 }
 
 CreateForm.propTypes = {
-  config: PropTypes.shape({
-    form: PropTypes.objectOf(PropTypes.shape({
-      type: PropTypes.string.isRequired,
-    })),
-    url: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    config: PropTypes.shape({
+      form: PropTypes.objectOf(PropTypes.shape({
+        type: PropTypes.string.isRequired,
+      })),
+      url: PropTypes.string.isRequired,
+      method: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  handlerBuilder: PropTypes.shape({
-    build: PropTypes.func.isRequired,
-    setUrl: PropTypes.func.isRequired,
-    setMethod: PropTypes.func.isRequired,
-  }).isRequired,
   templateResolver: PropTypes.shape({
     pageWrapper: PropTypes.func.isRequired,
   }),
+  apiUrl: PropTypes.string.isRequired,
+  fetchClient: PropTypes.func,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export {
   CreateForm,
 };
 
-export default reduxForm()(CreateForm);
+export default compose(
+  connect(null, dispatch => ({ dispatch })),
+  formNamer,
+  reduxForm()
+)(CreateForm);

@@ -1,19 +1,9 @@
-import {
-  OPTIONS_LOADED_TYPE,
-  OPTIONS_LOAD_FAILED_TYPE
-} from './actions.js';
+import { combineReducers } from 'redux';
 
-const reducer = (state = {}, { type, payload }) => {
-  switch (type){
-    case OPTIONS_LOADED_TYPE:
-    case OPTIONS_LOAD_FAILED_TYPE:
-      return {
-        ...state,
-        [payload.namespace]: payload.response,
-      };
-    default:
-      return state;
-  }
-};
+import optionsReducer from './reducer/optionsReducer.js';
+import entityDataReducer from './reducer/entityDataReducer.js';
 
-export default reducer;
+export default combineReducers({
+  options: optionsReducer,
+  entityData: entityDataReducer,
+});
