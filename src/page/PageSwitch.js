@@ -14,10 +14,10 @@ class PageSwitch extends React.Component {
       const Component = match.component;
 
       return <Component
-        handlerBuilder={ this.props.formHandlerBuilder }
-        config={ match.config }
-        form={ match.key }
+        match={ match }
         templateResolver={ this.props.templateResolver }
+        apiUrl={ this.props.apiUrl }
+        fetchClient={ this.props.fetchClient }
         />;
     } catch (error) {
       this.props.dispatch(URL_MATCH_FAILURE({
@@ -42,10 +42,11 @@ PageSwitch.propTypes = {
     action: PropTypes.string.isRequired,
   })).isRequired,
   url: PropTypes.string.isRequired,
-  formHandlerBuilder: PropTypes.any,
   routeResolver: PropTypes.func,
   matcher: PropTypes.func,
   templateResolver: PropTypes.any,
+  apiUrl: PropTypes.any,
+  fetchClient: PropTypes.any,
 };
 
 PageSwitch.defaultProps = {

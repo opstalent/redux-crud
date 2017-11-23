@@ -17,10 +17,15 @@ The `getHandler` method returns form submission handler function.
 
 #### `buildHandler() : Function`
 
-The `buildHandler` method is getting form handler builder given in
-[`handlerBuilder`](#handlerbuilder--object-required) prop and passing config variables to it.
+Method which returns function which handles form submission.
 
-Function is returning function which handles form submission.
+The `buildHandler` method is creating new [`formHandler`](./form/formHandler.md) object.
+It is passing to its config following props:
+- [`apiUrl`](#apiurl--string-required),
+- [`match.config.method`](#match--object-required),
+- [`match.config.url`](#match--object-required).
+
+If [`fetchClient`](#fetchclient--function) is defined it passes it overloads handler's `httpClient` method with it.
 
 #### `resolveField(fieldConfig) : Element`
 
@@ -39,17 +44,34 @@ Method returns array of [`Field`](https://redux-form.com/7.1.2/docs/api/field.md
 
 ## Props reference
 
-#### `config : object` [required]
+#### `match : object` [required]
 
-An object with configuration of form which have to be rendered.
+An object with match for rendered [`Route`](../route.md).
 
-The `CreateForm` component is handling following fields of `config` prop:
+It is required that `match` object has following structure:
 
-| key | type | description | is required |
-|---|---|---|---|
-| form | object | Form field's config | x |
-| url | string | URL of endpoint which handles form | ✓ |
-| method | string | Method of HTTP request to send when submitting form | ✓ |
+```js
+const match = {
+  config: {
+    form: {
+      someField: {
+        type: 'text',
+      },
+      anotherField: {
+        type: 'date',
+      },
+      // ... more fields
+    },
+  },
+  url: '/user',
+  method: 'POST',
+};
+```
+
+Details of match structure could be found in [`matcher` reference](../routing/matcher.md).
+
+Allowed field types depends on [`fieldResolver`](./resolver/fieldResolver.md)
+passed in [`templateResolver.field`](#templateresolver--object).
 
 #### `handleSubmit : Function` [required]
 
@@ -57,18 +79,28 @@ Function to process form submission.
 
 By default function given by [`reduxForm`](https://redux-form.com/7.1.1/docs/api/reduxform.md/) higher order component is passed.
 
-#### `handlerBuilder : object` [required]
-
-An object which is used to build form submission handler.
-
-It has to have following methods:
-- `setUrl` which accepts `url` parameter and passes it to built handler,
-- `setMethod` which accepts `method` parameter and passes it to build handler,
-- `build` which builds handler from previously set parameters.
-
-#### `templateResolver : object` [required]
+#### `templateResolver : object`
 
 An object which aggregates template resolvers.
 
 It has to have following methods:
 - `pageWrapper` to render form's page wrapper.
+
+#### `apiUrl : string` [required]
+
+Base URL of API called by form handler generated in [`buildHandler`](#buildhandler--function) method.
+
+#### `fetchClient : Function`
+
+Optional HTTP client passed to [`formHandler`](./form/formHandler) object built by
+[`buildHandler`](#buildhandler--function) method.
+
+Details could be found in [`formHandler` reference](./form/formHandler#overriding-default-http-client).
+
+#### `dispatch : Function` [required]
+
+A function used to dispatch actions.
+
+By default `store.dispatch` function is passed by
+[`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
+HOC from `react-redux`.

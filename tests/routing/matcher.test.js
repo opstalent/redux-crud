@@ -5,6 +5,7 @@ import matcher from '../../src/routing/matcher.js';
 const collection = [
   { path: '/some/path', exact: true, strict: false },
   { path: '/another/path', exact: false, strict: false },
+  { path: '/some/different/path/:id', exact: true, strict: false },
 ];
 
 describe('routing/matcher', () => {
@@ -25,6 +26,12 @@ describe('routing/matcher', () => {
   });
 
   it('returns an object from given collection which is matching to given URL', () => {
-    expect(matcher('/another/path/2', collection)).to.be.deep.equal(collection[1]);
+    expect(matcher('/another/path/2', collection)).to.be.deep.include(collection[1]);
+  });
+
+  it('returns an object which contains match params when any given item matches an URL', () => {
+    const match = matcher('/some/different/path/7', collection);
+    expect(match).to.have.property('params');
+    expect(match.params).to.deep.include({ id: '7' });
   });
 });

@@ -1,19 +1,17 @@
 import { expect } from 'chai';
 
-import reducer from '../src/reducer.js';
+import reducerTestCaseGenerator from './reducerTestCaseGenerator.js';
+import optionsReducer from '../../src/reducer/optionsReducer.js';
+
 import {
   OPTIONS_LOADED_TYPE,
   OPTIONS_LOAD_FAILED_TYPE,
-} from '../src/actions.js';
+} from '../../src/actions.js';
 
-const actionTypeDependentResultTest = (type, payload, prevState, expectedState) => () => {
-  const action = { type, payload };
+const reducerTest = reducerTestCaseGenerator(optionsReducer);
 
-  expect(reducer(prevState, action)).to.deep.equal(expectedState);
-};
-
-describe('reducer', () => {
-  it('returns proper state structure on OPTIONS_LOADED action', actionTypeDependentResultTest(
+describe('reducer.options', () => {
+  it('returns proper state structure on OPTIONS_LOADED action', reducerTest(
     OPTIONS_LOADED_TYPE,
     {
       namespace: 'someNamespace',
@@ -23,7 +21,7 @@ describe('reducer', () => {
     { someNamespace: { var1: 'someValue' } }
   ));
 
-  it('returns proper state structure on OPTIONS_LOAD_ERROR action', actionTypeDependentResultTest(
+  it('returns proper state structure on OPTIONS_LOAD_ERROR action', reducerTest(
     OPTIONS_LOAD_FAILED_TYPE,
     {
       namespace: 'someNamespace',
@@ -33,7 +31,7 @@ describe('reducer', () => {
     { someNamespace: { var1: 'someError' }}
   ));
 
-  it('overrides previous state properly on OPTIONS_LOADED action', actionTypeDependentResultTest(
+  it('overrides previous state properly on OPTIONS_LOADED action', reducerTest(
     OPTIONS_LOADED_TYPE,
     {
       namespace: 'someNamespace',
@@ -46,7 +44,7 @@ describe('reducer', () => {
     }
   ));
 
-  it('overrides previous state properly on OPTIONS_LOAD_FAILED action', actionTypeDependentResultTest(
+  it('overrides previous state properly on OPTIONS_LOAD_FAILED action', reducerTest(
     OPTIONS_LOAD_FAILED_TYPE,
     {
       namespace: 'someNamespace',
@@ -59,14 +57,14 @@ describe('reducer', () => {
     }
   ));
 
-  it('returns previous state on DUMMY action', actionTypeDependentResultTest(
+  it('returns previous state on DUMMY action', reducerTest(
     'DUMMY',
     { anything: 'justAnything' },
     { somePreviousKey: 'somePreviousValue' },
     { somePreviousKey: 'somePreviousValue' }
   ));
 
-  it('overrides a duplicated state key on OPTIONS_LOADED action', actionTypeDependentResultTest(
+  it('overrides a duplicated state key on OPTIONS_LOADED action', reducerTest(
     OPTIONS_LOADED_TYPE,
     {
       namespace: 'someNamespace',
@@ -82,7 +80,7 @@ describe('reducer', () => {
     }
   ));
 
-  it('overrides a duplicated state key on OPTIONS_LOAD_FAILED action', actionTypeDependentResultTest(
+  it('overrides a duplicated state key on OPTIONS_LOAD_FAILED action', reducerTest(
     OPTIONS_LOAD_FAILED_TYPE,
     {
       namespace: 'someNamespace',
@@ -101,6 +99,6 @@ describe('reducer', () => {
   it('returns object if previous state is an object', () => {
     const action = {};
 
-    expect(reducer({}, action)).to.be.an('object');
+    expect(optionsReducer({}, action)).to.be.an('object');
   });
 });

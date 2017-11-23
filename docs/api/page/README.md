@@ -38,11 +38,12 @@
 
 [`View source`](../../../src/page/form/formHandler.js)
 
-## [`page/form/formHandlerBuilder`](form/formHandlerBuilder.md)
+## [`page/form/formNamer`](form/formNamer.md)
 
-> Builder class which builds [`FormHandler`](./form/formHandler.md) instance.
+> The `formName` function is component decorator used to provide compatibility with
+> [`reduxForm`](https://redux-form.com/7.2.0/docs/api/reduxform.md/) decorator.
 
-[`View source`](../../../src/page/form/formHandlerBuilder.js)
+[`View source`](../../../src/page/form/formNamer.js)
 
 ## [`page/form/FieldComponent`](form/fieldComponent.md)
 

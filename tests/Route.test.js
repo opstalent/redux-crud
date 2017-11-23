@@ -25,68 +25,12 @@ const baseProps = {
   fetchClient: () => new Promise(resolve => resolve()),
   path: 'somePath',
   apiUrl: 'someApi',
-  formHandlerBuilderClass: builderMocker(),
   dispatch: () => {},
 };
 
 const loaderProps = {
   dispatch: () => {},
 };
-
-describe('Route.createFormHandlerBuilder', () => {
-  it('is a function', () => {
-    const instance = new Route(baseProps);
-
-    expect(instance.createFormHandlerBuilder).to.be.a('function');
-  });
-
-  it('returns an object', () => {
-    const instance = new Route(baseProps);
-
-    expect(instance.createFormHandlerBuilder()).to.be.an('object');
-  });
-
-  it('returns an object which is instance of class given by property `formHandlerBuilderClass`', () => {
-    const instance = new Route(baseProps);
-
-    expect(instance.createFormHandlerBuilder()).to.be.an.instanceof(baseProps.formHandlerBuilderClass);
-  });
-
-  it('calls method `setBaseUrl` of object created from `formHandlerBuilderClass` prop with param passed from `apiUrl` prop', () => {
-    const setBaseUrlSpy = spy(() => {});
-    const classMock = builderMocker({
-      setBaseUrl: setBaseUrlSpy,
-    });
-    const instance = new Route({
-      ...baseProps,
-      apiUrl: 'someUrl',
-      formHandlerBuilderClass: classMock,
-    });
-
-    instance.createFormHandlerBuilder();
-
-    expect(setBaseUrlSpy.called).to.equal(true);
-    expect(setBaseUrlSpy.getCall(0).args[0]).to.equal('someUrl');
-  });
-
-  it('calls method `setDispatcher` of object created from `formHandlerBuilderClass` prop with param passed from `dispatch` prop', () => {
-    const setDispatcherSpy = spy(() => {});
-    const classMock = builderMocker({
-      setDispatcher: setDispatcherSpy,
-    });
-    const dispatch = () => {};
-    const instance = new Route({
-      ...baseProps,
-      formHandlerBuilderClass: classMock,
-      dispatch,
-    });
-
-    instance.createFormHandlerBuilder();
-
-    expect(setDispatcherSpy.called).to.equal(true);
-    expect(setDispatcherSpy.getCall(0).args[0]).to.equal(dispatch);
-  });
-});
 
 describe('Route.getNamespace', () => {
   it('returns a string', () => {

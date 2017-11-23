@@ -34,6 +34,10 @@ describe('path/transformer', () => {
     expect(transformer('last/{id}/middle')).to.equal('last/:id/middle');
   });
 
+  it('returns colon-wildcarded string when multiple curly-bracket-wildcarded string is given', () => {
+    expect(transformer('last/{id}/middle/{test}')).to.equal('last/:id/middle/:test');
+  });
+
   it('returns given string when curly-bracket-wildcarded string is given and wildcard is in the middle of many parts of url-string but not surrounded by slashes', () => {
     expect(transformer('last{id}middle')).to.equal('last{id}middle');
   });

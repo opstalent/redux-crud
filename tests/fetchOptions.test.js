@@ -3,14 +3,13 @@ import { spy } from 'sinon';
 
 import asyncAssert from './asyncAssert.js';
 import clientMocker from './httpClientMocker.js';
+import dispatchMocker from './dispatchMocker.js';
 
 import fetchOptions from '../src/fetchOptions.js';
 import {
   OPTIONS_LOADED_TYPE,
   OPTIONS_LOAD_FAILED_TYPE,
 } from '../src/actions.js'
-
-const dispatchMocker = () => spy(() => {});
 
 describe('fetchOptions', () => {
   it('calls client once', () => {

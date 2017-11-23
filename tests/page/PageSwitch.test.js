@@ -6,6 +6,7 @@ import Adapter from 'enzyme-adapter-react-15';
 
 import { PageSwitch } from '../../src/page/PageSwitch.js';
 import { URL_MATCH_FAILURE_TYPE } from '../../src/actions.js'
+import dispatchMocker from '../dispatchMocker.js';
 
 configure({ adapter: new Adapter() });
 
@@ -34,72 +35,65 @@ describe('page/PageSwitch.resolve', () => {
     expect(React.isValidElement(instance.resolve())).to.equal(true);
   });
 
-  it('passes `config` into rendered component when match has been found', () => {
-    const option = {
-      url: '/some/matching/url',
-      action: 'add',
+  it('passes `match` prop into rendered component when match has been found', () => {
+    const config = {
+      url: '/some/matching/url/{id}',
+      action: 'show',
     };
     const instance = buildComponentInstance({
       options: {
-        'route': option,
+        route: config,
       },
-      url: '/some/matching/url/add',
+      url: '/some/matching/url/2/show',
     });
 
     const component = instance.resolve();
 
-    expect(component.props).to.have.property('config');
-    expect(component.props.config).to.deep.equal(option)
-  });
-
-  it('passes `handlerBuilder` property into rendered component when match has been found', () => {
-    const instance = buildComponentInstance({
-      options: {
-        'route': {
-          url: '/some/matching/url',
-          action: 'add',
-        },
-      },
-      url: '/some/matching/url/add',
+    expect(component.props).to.have.property('match');
+    expect(component.props.match).to.deep.include({
+      config,
+      key: 'route',
+      params: { id: '2' },
     });
-
-    const component = instance.resolve();
-
-    expect(component.props).to.have.property('handlerBuilder');
   });
 
-  it('passes `form` property into rendered component when match has been found', () => {
-    const option = {
-      url: '/some/matching/url',
-      action: 'add',
+  it('passes `apiUrl` down prop into rendered component when match has been found', () => {
+    const config = {
+      url: '/some/matching/url/{id}',
+      action: 'show',
     };
     const instance = buildComponentInstance({
       options: {
-        'route': option,
+        route: config,
       },
-      url: '/some/matching/url/add',
+      url: '/some/matching/url/2/show',
+      apiUrl: 'someUrl',
     });
 
     const component = instance.resolve();
 
-    expect(component.props).to.have.property('form');
+    expect(component.props).to.have.property('apiUrl');
+    expect(component.props.apiUrl).to.equal('someUrl');
   });
 
-  it('passes `handlerBuilder` property into rendered component when match has been found', () => {
-    const option = {
-      url: '/some/matching/url',
-      action: 'add',
+  it('passes `fetchClient` down prop into rendered component when match has been found', () => {
+    const client = () => {};
+    const config = {
+      url: '/some/matching/url/{id}',
+      action: 'show',
     };
     const instance = buildComponentInstance({
       options: {
-        'route': option,
+        route: config,
       },
-      url: '/some/matching/url/add',
+      url: '/some/matching/url/2/show',
+      fetchClient: client,
     });
 
     const component = instance.resolve();
 
-    expect(component.props).to.have.property('handlerBuilder');
+    expect(component.props).to.have.property('fetchClient');
+    expect(component.props.fetchClient).to.equal(client);
   });
 
   it('passes `templateResolver` property into rendered component when match has been found', () => {
@@ -158,7 +152,7 @@ describe('page/PageSwitch.resolve', () => {
   });
 
   it('calls dispatch with URL_MATCH_FAILURE_TYPE action when option has not been found', () => {
-    const dispatch = spy(() => {});
+    const dispatch = dispatchMocker();
     const instance = buildComponentInstance({
       options: {},
       url: '/some/not/matching/url',
@@ -170,8 +164,8 @@ describe('page/PageSwitch.resolve', () => {
     expect(dispatch.getCall(0).args[0]).to.have.property('type', URL_MATCH_FAILURE_TYPE);
   });
 
-  it('does not dispatching URL_MATCH_FAILURE_TYPE action when option has been found', () => {
-    const dispatch = spy(() => {});
+  it('does not dispatch URL_MATCH_FAILURE_TYPE action when option has been found', () => {
+    const dispatch = dispatchMocker();
     const instance = buildComponentInstance({
       options: {
         'route': { url: '/some/matching/url', action: 'list' }
@@ -185,7 +179,7 @@ describe('page/PageSwitch.resolve', () => {
   });
 
   it('calls dispatch with url, options and error in payload when option has not been found', () => {
-    const dispatch = spy(() => {});
+    const dispatch = dispatchMocker();
     const instance = buildComponentInstance({
       options: {},
       url: '/some/not/matching/url',

@@ -6,8 +6,12 @@ export default (url, routes = []) => {
   }
 
   for (let i = 0; i < routes.length; ++i) {
-    if (matchPath(url, routes[i])) {
-      return routes[i];
+    let match = matchPath(url, routes[i]);
+    if (match) {
+      return {
+        ...routes[i],
+        params: match.params,
+      };
     }
   }
 

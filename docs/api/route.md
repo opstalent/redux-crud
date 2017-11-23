@@ -31,13 +31,6 @@ Method returns [`PageSwitch`](./page/pageSwitch.md) element when
 [`isLoaded`](#isloaded--bool) method returns `true`. Otherwise it returns
 [`Loader`](./loader.md) element.
 
-#### `createFormHandlerBuilder() : [FormHandlerBuilder](./page/formHandler/formHandlerBuilder.md)`
-
-Method is creating instance of class given by [`formHandlerBuilderClass`](#formhandlerbuilderclass--function) prop. 
-and passing to the `builder`:
-- [`apiUrl`](#apiurl--string-required) by method [`setBaseUrl`](./page/formHandler/formHandlerBuilder.md#setbaseurlbaseurl),
-- [`dispatch`](#dispatch--function-required) by method [`setDispatcher`](./page/formHandler/formHandlerBuilder.md#setdispatcherdispatcher).
-
 ## Props reference
 
 #### `path : string` [required]
@@ -62,20 +55,13 @@ Object containing responses for already called `OPTIONS` requests.
 
 By default object is passed by
 [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
-HOC from `react-redux` and holds results from `store.crud`.
+HOC from `react-redux` and holds results from `store.crud.options`.
 
 #### `fetchClient : any`
 
 Optional HTTP client passed to [`Loader`](loader.md) component.
 
 Details can be found in [reference of `Loader` component](loader.md).
-
-#### `formHandlerBuilderClass : Function`
-
-Class of form builder created by [`createFormHandlerBuilder`](#createformhandlerbuilder)
-method and passed to [`PageSwitch`](./page/pageSwitch.md) element.
-
-Default value of property is [`FormHandlerBuilder`](./page/formHandler/formHandlerBuilder.md).
 
 #### `dispatch : Function` [required]
 
