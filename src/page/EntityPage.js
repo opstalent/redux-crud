@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 
 import templated from './templated.js';
-import entityGetter from './entityGetter.js';
+import dataGetter from './dataGetter.js';
 
 class EntityPage extends React.Component
 {
@@ -59,6 +59,6 @@ EntityPage.propTypes = {
 export { EntityPage };
 
 export default compose(
-  entityGetter,
+  dataGetter,
   templated
 )(EntityPage);
