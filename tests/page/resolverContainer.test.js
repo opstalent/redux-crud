@@ -30,4 +30,12 @@ describe('page/resolverContainer', () => {
   it('has attribute `fieldWrapper` which is a function', () => {
     expect(resolver.fieldWrapper).to.be.a('function');
   });
+
+  it('contains key `entityAttribute`', () => {
+    expect(resolver).to.have.property('entityAttribute');
+  });
+
+  it('has attribute `entityAttribute` which is a function', () => {
+    expect(resolver.entityAttribute).to.be.a('function');
+  });
 });

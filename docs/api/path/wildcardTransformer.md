@@ -1,7 +1,7 @@
-# `path/transformer`
-[`View source`](../../../src/path/transformer.js)
+# `wildcardTransformer`
+[`View source`](../../../src/path/wildcardTransformer.js)
 
-> Function transforming URL templates from Symfony router format to
+> Function which transforms URL templates from Symfony router format to
 > [`react-router`](https://github.com/ReactTraining/react-router) format.
 
 Symfony router is using curly brackets to define wildcards in URL definition and
@@ -12,7 +12,7 @@ by colon.
 by [`react-router`](https://github.com/ReactTraining/react-router).
 
 ```js
-transformer(path);
+wildcardTransformer(path);
 ```
 
 #### Parameters

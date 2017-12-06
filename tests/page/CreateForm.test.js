@@ -197,31 +197,3 @@ describe('page/CreateForm.prepareFields', () => {
     expect(buildComponentInstance().prepareFields(arg)).to.have.length(2);
   });
 });
-
-describe('page/CreateForm.getPageResolver', () => {
-  it('is a function', () => {
-    expect(buildComponentInstance().getPageResolver).to.be.a('function');
-  });
-
-  it('returns an object', () => {
-    expect(buildComponentInstance().getPageResolver()).to.be.an('object');
-  });
-
-  it('returns an object with property `pageWrapper` which value is a function', () => {
-    const resolver = buildComponentInstance().getPageResolver();
-    expect(resolver).to.have.property('pageWrapper');
-    expect(resolver.pageWrapper).to.be.a('function');
-  });
-
-  it('returns an object with property `fieldWrapper` which value is a function', () => {
-    const resolver = buildComponentInstance().getPageResolver();
-    expect(resolver).to.have.property('fieldWrapper');
-    expect(resolver.fieldWrapper).to.be.a('function');
-  });
-
-  it('returns an object with property `field` which value is a function', () => {
-    const resolver = buildComponentInstance().getPageResolver();
-    expect(resolver).to.have.property('field');
-    expect(resolver.field).to.be.a('function');
-  });
-});

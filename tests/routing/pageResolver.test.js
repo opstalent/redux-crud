@@ -2,6 +2,7 @@ import { expect } from 'chai';
 
 import CreateForm from '../../src/page/CreateForm.js';
 import UpdateForm from '../../src/page/UpdateForm.js';
+import EntityPage from '../../src/page/EntityPage.js';
 import resolver from '../../src/routing/pageResolver.js';
 
 describe('routing/pageResolver', () => {
@@ -19,5 +20,9 @@ describe('routing/pageResolver', () => {
 
   it('returns `UpdateForm` component when given type is `edit`', () => {
     expect(resolver('edit')).to.equal(UpdateForm);
+  });
+
+  it('returns `EntityPage` component when given type is `show`', () => {
+    expect(resolver('show')).to.equal(EntityPage);
   });
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { expect } from 'chai';
-import { render, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import providerWrapper from '../../providerWrapper.js';
 
@@ -13,6 +13,11 @@ const baseProps = {
     key: 'some_key',
   },
   apiUrl: 'someUrl',
+  templateResolver: {
+    pageWrapper: () => ({ children }) => <div>{ children }</div>,
+    fieldWrapper: () => ({ children }) => <div>{ children }</div>,
+    field: () => () => <input />
+  },
   handleSubmit: () => () => {},
   handlerBuilder: {
     build: () => () => {},
@@ -45,7 +50,7 @@ export default (Form, description, defaultProps = {}) => {
       };
 
       const ProviderComponent = providerWrapper()(Form);
-      const wrapper = render((
+      const wrapper = mount((
         <ProviderComponent
           { ...props }
           match={ {

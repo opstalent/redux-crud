@@ -16,10 +16,17 @@ describe('page/resolver/pageWrapperResolver', () => {
     expect(() => wrapper()).to.throw();
   });
 
-  it('returns component which contains `form` tag when passed argument is `add`', () => {
-    const Component = wrapper('add');
+  it('returns component which contains `form` tag when passed argument is `form`', () => {
+    const Component = wrapper('form');
     const rendered = mount(<Component />);
 
     expect(rendered.find('form').length).to.be.above(0);
+  });
+
+  it('returns component which contains `div` tag when passed argument is `show`', () => {
+    const Component = wrapper('show');
+    const rendered = mount(<Component />);
+
+    expect(rendered.childAt(0).is('dl')).to.be.equal(true);
   });
 });

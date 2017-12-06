@@ -5,12 +5,6 @@ The `CreateForm` component displays and handles create form from given [`config`
 
 ## Methods reference
 
-#### `getPageResolver() : object`
-
-The `getPageResolver` function returns template resolver.
-If [`templateResolver`](`#templateresolver--object`) prop is defined function returns value of this prop.
-Otherwise function returns [`resolverContainer`](./resolverContainer.md) object.
-
 #### `getHandler() : Function`
 
 The `getHandler` method returns form submission handler function.
@@ -38,7 +32,7 @@ The `fieldConfig` parameter has to be an array with two items:
 
 #### `prepareFields(list) : Array`
 
-The `prepareFields` method is iterating field configs given in `list` parameter with [`resolveField`](resolvefieldoptionarray--element) method.
+The `prepareFields` method is iterating field configs given in `list` parameter with [`resolveField`](#resolvefieldfieldconfig--element) method.
 
 Method returns array of [`Field`](https://redux-form.com/7.1.2/docs/api/field.md/) elements.
 
@@ -71,7 +65,7 @@ const match = {
 Details of match structure could be found in [`matcher` reference](../routing/matcher.md).
 
 Allowed field types depends on [`fieldResolver`](./resolver/fieldResolver.md)
-passed in [`templateResolver.field`](#templateresolver--object).
+passed in [`templateResolver.field`](#templateresolver--object-required).
 
 #### `handleSubmit : Function` [required]
 
@@ -79,11 +73,12 @@ Function to process form submission.
 
 By default function given by [`reduxForm`](https://redux-form.com/7.1.1/docs/api/reduxform.md/) higher order component is passed.
 
-#### `templateResolver : object`
+#### `templateResolver : object` [required]
 
 An object which aggregates template resolvers.
 
 It has to have following methods:
+- `fieldWrapper` to render form field's wrapper,
 - `pageWrapper` to render form's page wrapper.
 
 #### `apiUrl : string` [required]

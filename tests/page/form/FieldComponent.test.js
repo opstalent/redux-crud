@@ -4,19 +4,20 @@ import Adapter from 'enzyme-adapter-react-15';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 
-import Field from '../../../src/page/form/FieldComponent';
+import { FieldComponent as Field } from '../../../src/page/form/FieldComponent';
+import resolverContainer from '../../../src/page/resolverContainer';
 
 configure({ adapter: new Adapter() });
 
 const baseProps = {
   config: {
     label: 'Some label',
-    wrapperType: 'add',
     type: 'text',
   },
   input: {
     name: 'Some name',
   },
+  templateResolver: resolverContainer,
 };
 
 describe('page/form/FieldComponent', () => {

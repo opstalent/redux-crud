@@ -12,8 +12,7 @@ pageWrapperResolver(type);
 ##### `type : string`
 
 Type of wrapper to render. Allowed types are:
-- `add`,
-- `edit`,
+- `form`,
 - `list`,
 - `show`.
 
