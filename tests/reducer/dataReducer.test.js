@@ -1,18 +1,18 @@
 import { expect } from 'chai';
 
 import reducerTestCaseGenerator from './reducerTestCaseGenerator.js';
-import entityDataReducer from '../../src/reducer/entityDataReducer.js';
+import dataReducer from '../../src/reducer/dataReducer.js';
 
 import {
-  ENTITY_DATA_DOWNLOAD_SUCCEEDED_TYPE,
-  ENTITY_DATA_DOWNLOAD_FAILED_TYPE,
+  DATA_DOWNLOAD_SUCCEEDED_TYPE,
+  DATA_DOWNLOAD_FAILED_TYPE,
 } from '../../src/actions.js';
 
-const reducerTest = reducerTestCaseGenerator(entityDataReducer);
+const reducerTest = reducerTestCaseGenerator(dataReducer);
 
-describe('reducer/.entityDataReducer', () => {
+describe('reducer/dataReducer', () => {
   it('is a function', () => {
-    expect(entityDataReducer).to.be.a('function');
+    expect(dataReducer).to.be.a('function');
   });
 
   it('returns given state if not handled action type provided', reducerTest(
@@ -22,8 +22,8 @@ describe('reducer/.entityDataReducer', () => {
     { someKey: 'someValue' },
   ));
 
-  it('returns state with response assigned to namespace key when action is ENTITY_DATA_DOWNLOAD_SUCCEEDED', reducerTest(
-    ENTITY_DATA_DOWNLOAD_SUCCEEDED_TYPE,
+  it('returns state with response assigned to namespace key when action is DATA_DOWNLOAD_SUCCEEDED', reducerTest(
+    DATA_DOWNLOAD_SUCCEEDED_TYPE,
     {
       response: { someKey: 'someValue' },
       namespace: 'someNamespace',
@@ -38,8 +38,8 @@ describe('reducer/.entityDataReducer', () => {
     }
   ));
 
-  it('returns state with response assigned to namespace key when action is ENTITY_DATA_DOWNLOAD_FAILED', reducerTest(
-    ENTITY_DATA_DOWNLOAD_FAILED_TYPE,
+  it('returns state with response assigned to namespace key when action is DATA_DOWNLOAD_FAILED', reducerTest(
+    DATA_DOWNLOAD_FAILED_TYPE,
     {
       response: { someKey: 'someValue' },
       namespace: 'someNamespace',

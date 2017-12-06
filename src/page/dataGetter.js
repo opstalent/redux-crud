@@ -5,12 +5,12 @@ import { compose } from 'redux';
 
 import binder from '../path/wildcardBinder.js';
 import {
-  ENTITY_DATA_DOWNLOAD_SUCCEEDED,
-  ENTITY_DATA_DOWNLOAD_FAILED,
+  DATA_DOWNLOAD_SUCCEEDED,
+  DATA_DOWNLOAD_FAILED,
 } from '../actions.js';
 
-const entityGetter = (WrappedComponent) => {
-  class EntityGetter extends Component
+const dataGetter = (WrappedComponent) => {
+  class DataGetter extends Component
   {
     componentDidMount() {
       this.fetchData();
@@ -22,10 +22,10 @@ const entityGetter = (WrappedComponent) => {
       return this.props.fetchClient({
         url,
         method: 'get',
-      }).then(response => this.props.dispatch(ENTITY_DATA_DOWNLOAD_SUCCEEDED({
+      }).then(response => this.props.dispatch(DATA_DOWNLOAD_SUCCEEDED({
         response,
         namespace: url,
-      }))).catch(({ response }) => this.props.dispatch(ENTITY_DATA_DOWNLOAD_FAILED({
+      }))).catch(({ response }) => this.props.dispatch(DATA_DOWNLOAD_FAILED({
         response,
         namespace: url,
       })));
@@ -36,13 +36,13 @@ const entityGetter = (WrappedComponent) => {
       return (
         <WrappedComponent
           { ...this.props }
-          entity={ this.props.entityData[url] }
+          data={ this.props.data[url] }
         />
       );
     }
   }
 
-  EntityGetter.propTypes = {
+  DataGetter.propTypes = {
     fetchClient: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
     match: PropTypes.shape({
@@ -51,20 +51,19 @@ const entityGetter = (WrappedComponent) => {
       }).isRequired,
       params: PropTypes.object,
     }).isRequired,
-    entityData: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
   };
 
-  return EntityGetter;
+  return DataGetter;
 };
 
-export { entityGetter };
+export { dataGetter };
 
 const mapStateToProps = state => ({
-  entityData: state.crud && state.crud.entityData || {},
+  data: state.crud && state.crud.data || {},
 });
 
-export default WrappedComponent =>
-  compose(
-    connect(mapStateToProps, dispatch => ({ dispatch })),
-    entityGetter
-  )(WrappedComponent);
+export default compose(
+  connect(mapStateToProps, dispatch => ({ dispatch })),
+  dataGetter
+);

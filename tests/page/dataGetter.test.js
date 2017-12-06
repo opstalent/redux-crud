@@ -4,10 +4,10 @@ import { mount, configure } from 'enzyme';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 
-import { entityGetter } from '../../src/page/entityGetter.js';
+import { dataGetter } from '../../src/page/dataGetter.js';
 import {
-  ENTITY_DATA_DOWNLOAD_SUCCEEDED_TYPE,
-  ENTITY_DATA_DOWNLOAD_FAILED_TYPE,
+  DATA_DOWNLOAD_SUCCEEDED_TYPE,
+  DATA_DOWNLOAD_FAILED_TYPE,
 } from '../../src/actions.js';
 
 import httpClientMocker from '../httpClientMocker.js';
@@ -24,23 +24,23 @@ const baseProps = {
       url: '/some/url',
     },
   },
-  entityData: {},
+  data: {},
 };
 
 const buildComponentInstance = (props = {}) => {
-  const Component = entityGetter(() => <div />);
+  const Component = dataGetter(() => <div />);
 
   return new Component({ ...baseProps, ...props });
 }
 const mountComponent = Component => (props = {}) => mount(<Component { ...baseProps } { ...props } />);
 const generateSpyComponent = () => spy(() => <div />);
 
-describe('page/entityGetter', () => {
+describe('page/dataGetter', () => {
   it('is higher order component', () => {
-    expect(entityGetter).to.be.a('function');
+    expect(dataGetter).to.be.a('function');
 
     const wrappedComponent = generateSpyComponent();
-    expect(mountComponent(entityGetter(wrappedComponent))).to.not.throw();
+    expect(mountComponent(dataGetter(wrappedComponent))).to.not.throw();
     expect(wrappedComponent.called).to.equal(true);
   });
 
@@ -48,32 +48,32 @@ describe('page/entityGetter', () => {
     const props = { a: 1, b: 2, c: 3 };
     const wrappedComponent = generateSpyComponent();
 
-    mountComponent(entityGetter(wrappedComponent))(props);
+    mountComponent(dataGetter(wrappedComponent))(props);
     expect(wrappedComponent.getCall(0).args[0]).to.deep.include(props);
   });
 });
 
-describe('page/EntityGetter', () => {
-  it('passes `entity` prop to wrapped component from given prop `entity`', () => {
+describe('page/DataGetter', () => {
+  it('passes `data` prop to wrapped component from given prop `data`', () => {
     const entity = { someValue: 1, someAnotherValue: 2 }
     const componentSpy = generateSpyComponent();
 
     const props = {
       ...baseProps,
-      entityData: {
+      data: {
         'some/namespace': entity,
       },
     };
     props.match.config.url = 'some/namespace';
-    mountComponent(entityGetter(componentSpy))(props);
+    mountComponent(dataGetter(componentSpy))(props);
 
     const wrappedComponentProps = componentSpy.getCall(0).args[0];
-    expect(wrappedComponentProps).to.have.property('entity');
-    expect(wrappedComponentProps.entity).to.deep.equal(entity);
+    expect(wrappedComponentProps).to.have.property('data');
+    expect(wrappedComponentProps.data).to.deep.equal(entity);
   });
 });
 
-describe('page/EntityGetter.componentDidMount', () => {
+describe('page/DataGetter.componentDidMount', () => {
   it('is a function', () => {
     const instance = buildComponentInstance();
 
@@ -91,7 +91,7 @@ describe('page/EntityGetter.componentDidMount', () => {
 });
 
 
-describe('page/EntityGetter.fetchData', () => {
+describe('page/DataGetter.fetchData', () => {
   it('is a function', () => {
     const instance = buildComponentInstance();
 
@@ -133,7 +133,7 @@ describe('page/EntityGetter.fetchData', () => {
     expect(fetchConfig).to.include({ method: 'get' });
   });
 
-  it('dispatches ENTITY_DATA_DOWNLOAD_SUCCEEDED_TYPE action with proper payload when download succeeded', (done) => {
+  it('dispatches DATA_DOWNLOAD_SUCCEEDED_TYPE action with proper payload when download succeeded', (done) => {
     const response = { value: 1, another: 2 };
     const fetchClient = httpClientMocker(true, response);
     const dispatch = dispatchMocker();
@@ -149,7 +149,7 @@ describe('page/EntityGetter.fetchData', () => {
     instance.fetchData().then(asyncAssert(() => {
       expect(dispatch.callCount).to.equal(1);
       const action = dispatch.getCall(0).args[0];
-      expect(action).to.have.property('type', ENTITY_DATA_DOWNLOAD_SUCCEEDED_TYPE);
+      expect(action).to.have.property('type', DATA_DOWNLOAD_SUCCEEDED_TYPE);
       expect(action).to.have.deep.property('payload', {
         response,
         namespace: props.match.config.url,
@@ -157,7 +157,7 @@ describe('page/EntityGetter.fetchData', () => {
     }, done), done);
   });
 
-  it('dispatches ENTITY_DATA_DOWNLOAD_FAILED_TYPE action with proper payload when download failed', (done) => {
+  it('dispatches DATA_DOWNLOAD_FAILED_TYPE action with proper payload when download failed', (done) => {
     const response = { value: 1, another: 2 };
     const fetchClient = httpClientMocker(false, response);
     const dispatch = dispatchMocker();
@@ -173,7 +173,7 @@ describe('page/EntityGetter.fetchData', () => {
     instance.fetchData().then(asyncAssert(() => {
       expect(dispatch.callCount).to.equal(1);
       const action = dispatch.getCall(0).args[0];
-      expect(action).to.have.property('type', ENTITY_DATA_DOWNLOAD_FAILED_TYPE);
+      expect(action).to.have.property('type', DATA_DOWNLOAD_FAILED_TYPE);
       expect(action).to.have.deep.property('payload', {
         response,
         namespace: props.match.config.url,

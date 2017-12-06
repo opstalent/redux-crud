@@ -7,7 +7,7 @@ import { reduxForm } from 'redux-form';
 import { CreateForm } from './CreateForm.js';
 import formNamer from './form/formNamer.js';
 import binder from '../path/wildcardBinder.js';
-import entityGetter from './entityGetter.js';
+import dataGetter from './dataGetter.js';
 
 const updateFormWrapper = (WrappedComponent) => {
   class UpdateForm extends Component {
@@ -40,7 +40,7 @@ export { updateFormWrapper }
 
 export default compose(
   connect(null, dispatch => ({ dispatch })),
-  entityGetter,
+  dataGetter,
   updateFormWrapper,
   formNamer,
   reduxForm(),
