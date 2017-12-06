@@ -30,7 +30,6 @@ describe('page/table/TableHeader', () => {
   it('renders React element which has result of `templateResolver.tableHeaderWrapper()` as top level wrapper', () => {
     const Wrapper = ({ children }) => <tr>{ children }</tr>;
     const header = renderHeader({
-      ...baseProps,
       templateResolver: {
         ...baseProps.templateResolver,
         tableHeaderWrapper: () => Wrapper,
@@ -42,7 +41,6 @@ describe('page/table/TableHeader', () => {
 
   it('contains as many `TableHeaderCell` elements as valid items in `config.form` prop', () => {
     const header = renderHeader({
-      ...baseProps,
       fields: {
         field1: { type: 'text' },
         field2: { type: 'email' },
